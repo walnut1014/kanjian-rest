@@ -18,5 +18,8 @@ public interface AuthAccountMapper {
 	
 	@Select("SELECT count(*) FROM t_auth_account WHERE mobilephone = #{mobilephone}")
 	int getCountByMobilephone(String mobilephone);
+	
+	@Select("SELECT password FROM t_auth_account WHERE mobilephone = #{mobilephone}")
+	String getPasswordByMobilephone(String mobilephone);
 
 }
