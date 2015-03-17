@@ -19,7 +19,7 @@ public class LoginController {
 	@RequestMapping(value="login", method = RequestMethod.POST)
 	public Normal login(@RequestBody AuthAccount authAccount) {
 		
-		//authAccountService.login(authAccount.getMobilephone(), authAccount.getPassword());
+		authAccountService.login(authAccount.getMobilephone(), authAccount.getPassword());
 		return Normal.INSTANCE;
 	}
 	

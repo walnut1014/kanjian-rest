@@ -3,7 +3,7 @@ package name.walnut.auth.service.impl;
 import name.walnut.auth.dao.AuthAccountDao;
 import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.service.AuthAccountService;
-import name.walnut.common.ServiceException;
+import name.walnut.common.BusinessException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 	public void login(String mobilephone, String password) {
 		String _password = authAccountDao.getMapper().getPasswordByMobilephone(mobilephone);
 		if(!password.equals(_password))
-			throw new ServiceException("用户名或密码错误");
+			throw new BusinessException("用户名或密码错误");
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 	public void isExist(String mobilephone) {
 		
 		if(authAccountDao.getMapper().getCountByMobilephone(mobilephone) > 0)
-			throw new ServiceException("此用户已存在");
+			throw new BusinessException("此用户已存在");
 	}
 	
 	

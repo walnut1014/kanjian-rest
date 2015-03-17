@@ -16,6 +16,8 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<bean id="exceptionResolver" class="name.walnut.web.ExceptionResolver" />
+	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 通过HTTP上传文件，单个文件不允许超过300kb-->
 		<property name="maxUploadSize" value="307200" />

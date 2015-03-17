@@ -38,6 +38,7 @@ public class RegisterController {
 	public Normal sendCode(@RequestBody AuthAccount authAccount, HttpSession session) {
 		
 		authAccountService.isExist(authAccount.getMobilephone());
+		
 		session.setAttribute("veriCode", new RegisterVo(authAccount.getMobilephone(), "123456"));
 		return Normal.INSTANCE;
 	}
