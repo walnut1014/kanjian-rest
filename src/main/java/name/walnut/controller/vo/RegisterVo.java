@@ -2,27 +2,28 @@ package name.walnut.controller.vo;
 
 public class RegisterVo {
 	
-	private String mobilephone;
-	private String veriCode;
+	private String password;
+	private String nickName;
+	private String token;
 	
-	public RegisterVo(String mobilephone, String veriCode) {
-		this.mobilephone = mobilephone;
-		this.veriCode = veriCode;
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
-	
-	public String getMobilephone() {
-		return mobilephone;
-	}
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
-	}
-	public String getVeriCode() {
-		return veriCode;
-	}
-	public void setVeriCode(String veriCode) {
-		this.veriCode = veriCode;
-	}
-
 	
 }

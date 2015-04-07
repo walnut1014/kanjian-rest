@@ -2,6 +2,7 @@ package name.walnut.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 
 import name.walnut.common.BusinessException;
 
@@ -31,8 +32,12 @@ public class ExceptionResolver extends AbstractHandlerExceptionResolver {
 		mv.addObject("success",false);
 		mv.addObject("message", ex.getMessage());
 		
+		
 		if (ex instanceof BusinessException)
 			mv.addObject("data", ((BusinessException)ex).getData());
+		else{
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
 	
 		return mv;
 	}

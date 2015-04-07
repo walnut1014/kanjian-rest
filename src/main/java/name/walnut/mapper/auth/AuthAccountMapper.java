@@ -10,8 +10,7 @@ public interface AuthAccountMapper {
 	@Select("SELECT * FROM t_auth_account WHERE id = #{id}")
 	AuthAccount get(int id);
 	
-	@Insert("INSERT INTO t_auth_account(id,mobilephone,create_date) VALUES("
-			+ "#{id},"
+	@Insert("INSERT INTO t_auth_account(mobilephone,create_date) VALUES("
 			+ "#{mobilephone},"
 			+ "#{createDate})")
 	void insert(AuthAccount authAccount);

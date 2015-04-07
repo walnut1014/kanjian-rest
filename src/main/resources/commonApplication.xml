@@ -17,7 +17,7 @@
     http://www.springframework.org/schema/util/spring-util-4.0.xsd"
   	>
 
-	<util:properties id="database" location="classpath:database.properties" /> 
+	<util:properties id="database" location="file:${database_config}" /> 
 
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="driver" value="#{database.driver}" />
