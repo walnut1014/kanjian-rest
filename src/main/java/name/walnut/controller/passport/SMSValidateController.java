@@ -21,54 +21,34 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpSession;
 
-import name.walnut.auth.service.AuthAccountService;
 import name.walnut.common.BusinessException;
 import name.walnut.utils.StringUtils;
-import name.walnut.web.vo.Normal;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 
 @RestController
 @RequestMapping("/passport")
-public class RegisterCodeController {
+public class SMSValidateController {
 
-	@RequestMapping(value = "register/validateCode", method = RequestMethod.POST)
-	public String getVeriCode(@RequestBody Map<String, String> param, HttpSession session) {
+	@RequestMapping(value = "smsvalidate", method = RequestMethod.POST)
+	public String sendValidateResult(@RequestBody Map<String, String> param, HttpSession session) {
 		
-		requestData(param.get("phone"), param.get("zone"), param.get("code"));
+		validate(param.get("phone"), param.get("zone"), param.get("code"));
 		String token = StringUtils.getRandomStr(32);
-		session.setAttribute("MESSAGE_TOKEN", token);
+		session.setAttribute(Const.MESSAGE_TOKEN, token);
 		return token;
 	}
+	
+	private void validate(String phone, String zone, String code) {
 
-	@RequestMapping(value = "register/sendCode", method = RequestMethod.GET)
-	public Normal sendCode(@RequestParam("mobilephone") String mobilephone, HttpSession session) {
-		
-		authAccountService.isExist(mobilephone);
-		
-		session.setAttribute(MOBILEPHONE, mobilephone);
-		return Normal.INSTANCE;
-	}
-
-	/**
-	 * 发起https 请求
-	 * 
-	 * @return
-	 */
-	private void requestData(String phone, String zone, String code) {
-		
-		String params = "appkey=" + appkey
-					  + "&phone=" + phone
-					  + "&zone="  + zone
-					  + "&code="  + code;
+		String params = "appkey=" + appkey + "&phone=" + phone + "&zone="
+				+ zone + "&code=" + code;
 
 		HttpURLConnection conn = null;
 		try {
@@ -122,54 +102,50 @@ public class RegisterCodeController {
 			conn.connect();
 			// get result
 			if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				logger.error(conn.getResponseCode() + ":" + conn.getResponseMessage());
+				logger.error(conn.getResponseCode() + ":"
+						+ conn.getResponseMessage());
 				throw new BusinessException("发送短信失败", -2);
-			}else {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));  
+			} else {
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(conn.getInputStream()));
 				StringBuffer buffer = new StringBuffer();
 				String line = null;
 				boolean first = true;
-				 while ((line = reader.readLine()) != null) { 
-					 if(first){
-						 first = false;
-					 }else{
-						 buffer.append("\n");
-					 }
-					 buffer.append(line);   
-		         }   
-				int valiCode = JSON.parseObject(buffer.toString()).getInteger("status");
-				switch(valiCode) {
+				while ((line = reader.readLine()) != null) {
+					if (first) {
+						first = false;
+					} else {
+						buffer.append("\n");
+					}
+					buffer.append(line);
+				}
+				int valiCode = JSON.parseObject(buffer.toString()).getInteger(
+						"status");
+				switch (valiCode) {
 				case 200:
 					break;
 				case 520:
 					throw new BusinessException("验证码错误", -1);
 				default:
-					logger.error("短信服务商报错"+valiCode);	
+					logger.error("短信服务商报错" + valiCode);
 					throw new BusinessException("验证码错误", -2);
-				} 
+				}
 			}
-		} catch (IOException | KeyManagementException | NoSuchAlgorithmException e) {
+		} catch (IOException | KeyManagementException
+				| NoSuchAlgorithmException e) {
 			logger.error("系统错误", e);
 			throw new BusinessException("发送短信失败", -2);
-		}  finally {
+		} finally {
 			if (conn != null)
 				conn.disconnect();
 		}
 	}
 	
 	
+	private final static String appkey = "673e4d512b90";
 	
-
-	@Autowired
-	private AuthAccountService authAccountService;
+	private final static String smsUrl = "https://api.sms.mob.com/sms/verify";
 	
-	private String smsUrl = "https://api.sms.mob.com/sms/verify";
 	
-	private Logger logger = Logger.getLogger(RegisterCodeController.class);
-	
-	private String appkey = "673e4d512b90";
-	
-	private final static String MESSAGE_TOKEN = "message_token";
-	
-	private final static String MOBILEPHONE = "mobilephone";
+	private static Logger logger = Logger.getLogger(SMSValidateController.class);
 }

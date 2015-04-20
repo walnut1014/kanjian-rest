@@ -1,7 +1,6 @@
 package name.walnut.auth.dao.impl;
 
 import java.util.Date;
-import java.util.Random;
 
 import name.walnut.auth.dao.AuthAccountDao;
 import name.walnut.auth.entity.AuthAccount;
@@ -16,11 +15,9 @@ public class AuthAccountDaoImpl implements AuthAccountDao {
 	@Override
 	public long insert(AuthAccount authAccount) {
 
-		long id = new Random().nextInt(10000);
-		authAccount.setId(id);
 		authAccount.setCreateDate(new Date());
 		authAccountMapper.insert(authAccount);
-		return id;
+		return authAccount.getId();
 	}
 	
 	@Override
@@ -30,4 +27,6 @@ public class AuthAccountDaoImpl implements AuthAccountDao {
 	
 	@Autowired
 	private AuthAccountMapper authAccountMapper;
+	
+	
 }

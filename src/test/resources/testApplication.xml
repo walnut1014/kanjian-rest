@@ -17,7 +17,11 @@
     http://www.springframework.org/schema/util/spring-util-4.0.xsd"
   	>
 
-	<util:properties id="kanjianConf" location="file:${kanjian_config}" /> 
+	<util:properties id="kanjianConf" location="file:D:\kanjianConf.properties" /> 
+	
+	<context:component-scan base-package="name.walnut">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="driver" value="#{kanjianConf.driver}" />

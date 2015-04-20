@@ -1,9 +1,12 @@
 package name.walnut.controller.passport;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import name.walnut.auth.entity.AuthAccount;
-import name.walnut.auth.service.AuthAccountService;
+import name.walnut.auth.service.PassportService;
+import name.walnut.common.BusinessException;
 import name.walnut.web.vo.Normal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +20,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 	
 	@RequestMapping(value="login", method = RequestMethod.POST)
-	public Normal login(@RequestBody AuthAccount authAccount) {
+	public Normal login(@RequestBody AuthAccount authAccount, HttpSession session) {
 		
-		authAccountService.login(authAccount.getMobilephone(), authAccount.getPassword());
+		session.setAttribute(Const.CURRENT_AUTH, passportService.login(
+													authAccount.getMobilephone(), 
+													authAccount.getPassword()));
 		return Normal.INSTANCE;
 	}
 	
 	@RequestMapping(value="forgotPassword/sendCode", method = RequestMethod.POST)
 	public Normal forgotPasswordCode(@RequestBody AuthAccount authAccount, HttpSession session) {
 		
-		authAccountService.isExist(authAccount.getMobilephone());
+		if(!passportService.isExist(authAccount.getMobilephone()))
+			throw new BusinessException("此用户已不存在");
 		
-		session.setAttribute(FORGOT_PASSWORD_CODE, "123456");
+		session.setAttribute(Const.MOBILEPHONE, authAccount.getMobilephone());
+		return Normal.INSTANCE;
+	}
+	
+	@RequestMapping(value="setPassword", method = RequestMethod.POST)
+	public Normal setNewPassword(HttpSession session, @RequestBody Map<String, String> param) {
+		
+		if(!param.get("token").equals(session.getAttribute(Const.MESSAGE_TOKEN)))
+			throw new BusinessException("注册时非法调用");
+		
+		passportService.setPassword((String)session.getAttribute(Const.MOBILEPHONE), 
+										param.get("password"));
 		return Normal.INSTANCE;
 	}
 	
 	
 	@Autowired
-	private AuthAccountService authAccountService;
-	
-	private final static String FORGOT_PASSWORD_CODE = "forgotPasswordCode";
+	private PassportService passportService;
 }
