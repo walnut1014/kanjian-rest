@@ -1,5 +1,6 @@
 package name.walnut.auth.service;
 
+import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.entity.User;
 
@@ -8,7 +9,7 @@ public interface PassportService {
 	/**
 	 * 登陆
 	 */
-	AuthAccount login(String mobilephone, String password);
+	OnlineUser login(AuthAccount authAccount);
 	
 	/**
 	 * 注册

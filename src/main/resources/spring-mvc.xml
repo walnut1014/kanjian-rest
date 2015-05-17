@@ -15,6 +15,8 @@
 			<bean class="name.walnut.web.JsonHttpMessageConverter" />
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	
+	<mvc:resources mapping="/test/**" location="/test/" />
 
 	<context:component-scan base-package="name.walnut">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />

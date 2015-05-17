@@ -2,12 +2,12 @@ package name.walnut.auth.service.impl;
 
 import name.walnut.auth.dao.AuthAccountDao;
 import name.walnut.auth.dao.UserDao;
+import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.entity.User;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +15,16 @@ import org.springframework.stereotype.Service;
 public class PassportServiceImpl implements PassportService {
 	
 	@Override
-	public AuthAccount login(String mobilephone, String password) {
-		AuthAccount authAccount = authAccountDao.getMapper().getAuthAccountByMobilephone(mobilephone);
-		if(authAccount == null)
-			throw new BusinessException("您的手机号"+mobilephone+"还未注册", -1);
-		if(!password.equals(authAccount.getPassword()))
+	public OnlineUser login(AuthAccount authAccount) {
+		
+		if(authAccountDao.getMapper().getCountByMobilephone(authAccount.getMobilephone()) == 0)
+			throw new BusinessException("您的手机号"+authAccount.getMobilephone()+"还未注册", -1);
+		
+		OnlineUser onlineUser = userDao.getMapper().getOnlineUser(authAccount);
+		if(onlineUser == null)
 			throw new BusinessException("登陆密码错误", -2);
 		
-		return authAccount;
+		return onlineUser;
 	}
 	
 	@Override

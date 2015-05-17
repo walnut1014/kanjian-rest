@@ -6,6 +6,9 @@ import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.entity.User;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
+import name.walnut.controller.Const;
+import name.walnut.controller.passport.vo.LoginParam;
+import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.controller.utils.UploadUtils;
 import name.walnut.utils.StringUtils;
 import name.walnut.web.vo.Normal;
@@ -22,10 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class RegisterController {
 
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public Normal register(HttpSession session, @RequestParam("photo") MultipartFile myFile, 
+	public String register(HttpSession session, @RequestParam("photo") MultipartFile myFile, 
 												@RequestParam("nickName") String nickName,
 												@RequestParam("password") String password,
-												@RequestParam("token") String token) {
+												@RequestParam("token") String token,
+												@RequestParam("deviceToken") String deviceToken) {
 
 		if(!token.equals(session.getAttribute(Const.MESSAGE_TOKEN)))
 			throw new BusinessException("注册时非法调用");
@@ -39,15 +43,18 @@ public class RegisterController {
 		
 		User user = new User();
 		if(!myFile.isEmpty()){
-			user.setHeadPhotoPath(authAccount.getMobilephone() + "_head");
-			UploadUtils.upload(myFile, user.getHeadPhotoPath());
+			user.setHeadPhotoPath(UploadUtils.upload(myFile, Const.HEAD_PHOTO_GROUP));
 		}
 		user.setNickName(nickName);
 		
 		passportService.register(authAccount, user);
 		
-		session.setAttribute(Const.CURRENT_AUTH, authAccount);
-		return Normal.INSTANCE;
+		LoginParam loginParam = new LoginParam();
+		loginParam.setDeviceToken(deviceToken);
+		loginParam.setMobilephone(authAccount.getMobilephone());
+		loginParam.setPassword(authAccount.getPassword());
+		//返回用户头像路径
+		return OnlineUtils.login(loginParam).getHeadPhotoPath();
 	}
 	
 

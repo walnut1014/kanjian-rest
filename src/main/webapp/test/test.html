@@ -1,0 +1,54 @@
+<HTML>
+	<head>
+		<meta charset="UTF-8">
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript">
+		$.postJSON = function(url, data, callback) {
+	        return jQuery.ajax({
+	            'type' : 'POST',
+	            'url' : url,
+	            'contentType' : 'application/json',
+	            'data' : JSON.stringify(data),
+	            'dataType' : 'json',
+	            'success' : callback
+	        });
+	    };
+	    
+	    function login() {
+		    $.postJSON('/passport/login', {
+		    	mobilephone:$('#userName').val(),
+		    	password:$('#password').val()
+		    }, function(d) {
+		    	console.info(d);
+		    })
+	    }
+	    
+	    function postRequest() {
+	    	var requestParam = JSON.parse($('#param').val());
+	    	 $.postJSON($('#url').val(), requestParam, function(d){
+	    		 console.info(d);
+	    	 })
+	    }
+		</script>
+	</head>
+	
+	<body>
+		<label>用户名</label>
+		<input id="userName">
+		<br/>
+		
+		<label>密码</label>
+		<input id="password">
+		<br/>
+		<button onclick="login()">登陆</button>
+		<hr>
+		<label>url</label>
+		<input id="url">
+		<br/>
+		
+		<label>param</label>
+		<textarea rows="10" cols="80" id="param"></textarea>
+		<br/>
+		<button onclick="postRequest()">post请求</button>
+	</body>
+</HTML>

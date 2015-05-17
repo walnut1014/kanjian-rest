@@ -4,15 +4,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import name.walnut.auth.entity.AuthAccount;
+import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
+import name.walnut.controller.Const;
+import name.walnut.controller.passport.vo.LoginParam;
+import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.web.vo.Normal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,22 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 	
 	@RequestMapping(value="login", method = RequestMethod.POST)
-	public Normal login(@RequestBody AuthAccount authAccount, HttpSession session) {
+	public OnlineUser login(@RequestBody LoginParam loginParam) {
 		
-		session.setAttribute(Const.CURRENT_AUTH, passportService.login(
-													authAccount.getMobilephone(), 
-													authAccount.getPassword()));
-		return Normal.INSTANCE;
-	}
-	
-	@RequestMapping(value="forgotPassword/sendCode", method = RequestMethod.POST)
-	public Normal forgotPasswordCode(@RequestBody AuthAccount authAccount, HttpSession session) {
-		
-		if(!passportService.isExist(authAccount.getMobilephone()))
-			throw new BusinessException("此用户已不存在");
-		
-		session.setAttribute(Const.MOBILEPHONE, authAccount.getMobilephone());
-		return Normal.INSTANCE;
+		return OnlineUtils.login(loginParam);
 	}
 	
 	@RequestMapping(value="setPassword", method = RequestMethod.POST)
@@ -46,6 +37,17 @@ public class LoginController {
 		
 		passportService.setPassword((String)session.getAttribute(Const.MOBILEPHONE), 
 										param.get("password"));
+		return Normal.INSTANCE;
+	}
+	
+	@RequestMapping(value="forgotPassword/sendCode", method=RequestMethod.GET)
+	public Normal forgetPasswordSendCode(@RequestParam("mobilephone") String mobilephone, 
+									   HttpSession session) {
+		
+		if(!passportService.isExist(mobilephone))
+			throw new BusinessException("此用户不存在");
+		
+		session.setAttribute(Const.MOBILEPHONE, mobilephone);
 		return Normal.INSTANCE;
 	}
 	

@@ -1,24 +1,43 @@
 package name.walnut.relation.dto;
 
-import name.walnut.relation.RelationStatus;
+import name.walnut.auth.dto.UserWithMobile;
 
 public class MobileRelation {
 	
-	private String mobilephone;
-	private RelationStatus relationStatus;
+	private UserWithMobile userWithMobile;
+	private boolean agree;
+	private boolean invited;
 	
+
+	public MobileRelation(UserWithMobile userWithMobile, boolean agree,
+							boolean invited) {
+		this.userWithMobile = userWithMobile;
+		this.agree = agree;
+		this.invited = invited;
+	}
+	
+	public boolean isAgree() {
+		return agree;
+	}
+
+	public String getNickName() {
+		return userWithMobile.getNickName();
+	}
+	
+	public String getHeadPhotoPath() {
+		return userWithMobile.getHeadPhotoPath();
+	}
+	
+	public long getId() {
+		return userWithMobile.getId();
+	}
+
 	public String getMobilephone() {
-		return mobilephone;
+		return userWithMobile.getMobilephone();
 	}
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
+
+	public boolean isInvited() {
+		return invited;
 	}
-	public RelationStatus getRelationStatus() {
-		return relationStatus;
-	}
-	public void setRelationStatus(RelationStatus relationStatus) {
-		this.relationStatus = relationStatus;
-	}
-	
-	
+
 }

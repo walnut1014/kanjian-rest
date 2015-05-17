@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import name.walnut.common.Null;
 import name.walnut.web.vo.Normal;
 import name.walnut.web.vo.SimpleType;
 
@@ -24,7 +25,7 @@ public class JsonHttpMessageConverter extends FastJsonHttpMessageConverter {
 
 		if(obj instanceof SimpleType)
 			out.write(handleSimpleType(obj));
-		else if(obj instanceof Normal)
+		else if(obj instanceof Normal || obj instanceof Null)
 			out.write(handleNormal());
 		else
 			out.write(handleOthers(obj));

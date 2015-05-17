@@ -1,15 +1,16 @@
 package name.walnut.controller.relation;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import name.walnut.controller.relation.vo.RelationCount;
-import name.walnut.relation.RelationStatus;
 import name.walnut.relation.dto.FriendAndPhotoCount;
 import name.walnut.relation.dto.MobileRelation;
-import name.walnut.relation.entity.Relation;
+import name.walnut.relation.service.RelationService;
 import name.walnut.web.vo.Normal;
 
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,46 +20,50 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/relation")
 public class RelationController {
 	
-	@RequestMapping(value="count", method=RequestMethod.GET)
-	public RelationCount getRelationCount() {
-		return new RelationCount();
-	}
-	
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public List<MobileRelation> getRelations() {
-		List<MobileRelation> list = new ArrayList<>();
-		MobileRelation relation = new MobileRelation();
-		relation.setMobilephone("13800000000");
-		relation.setRelationStatus(RelationStatus.waitVerify);
-		list.add(relation);
-		relation = new MobileRelation();
-		relation.setMobilephone("13800000001");
-		relation.setRelationStatus(RelationStatus.sendRequest);
-		list.add(relation);
-		relation = new MobileRelation();
-		relation.setMobilephone("13800000002");
-		relation.setRelationStatus(RelationStatus.accetp);
-		list.add(relation);
-		
-		return list;
+
+		return relationService.getAllRelation();
 	}
 	
-	@RequestMapping(value="invit", method=RequestMethod.POST)
-	public Normal invit(@RequestBody Relation relation) {
+	@RequestMapping(value="count", method=RequestMethod.GET)
+	public RelationCount getRelationCount() {
 		
+		return new RelationCount(relationService.getUnreadCount(), 
+								 relationService.getFriendsCount());
+	}
+	
+	/**
+	 * 邀请
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value="invit", method=RequestMethod.POST)
+	public Normal invit(@RequestBody Map<String, Number> param) {
+		
+		relationService.invit(NumberUtils.toLong(param.get("id").toString()));
 		return Normal.INSTANCE;
 	}
 	
-	@RequestMapping(value="relation/friends", method=RequestMethod.GET)
-	public List<FriendAndPhotoCount> getFriends() {
-		List<FriendAndPhotoCount> list = new ArrayList<>();
-		FriendAndPhotoCount friendAndPhotoCount = new FriendAndPhotoCount();
-		friendAndPhotoCount.setUserId(1L);
-		friendAndPhotoCount.setPhotoCount(5);
-		friendAndPhotoCount.setMobilephone("1300000000");
-		list.add(friendAndPhotoCount);
+	/**
+	 * 同意邀请
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value="agreeInvit", method=RequestMethod.POST)
+	public Normal agreeInvit(@RequestBody Map<String, Number> param) {
 		
-		return list;
+		relationService.agreeInvit(NumberUtils.toLong(param.get("id").toString()));
+		return Normal.INSTANCE;
 	}
 	
+	@RequestMapping(value="friends", method=RequestMethod.GET)
+	public List<FriendAndPhotoCount> getFriends() {
+		
+		return relationService.getAllFindWhithPhotoCount();
+	}
+	
+	
+	@Autowired
+	private RelationService relationService;
 }

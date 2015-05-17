@@ -3,7 +3,6 @@ package name.walnut.relation.entity;
 import java.util.Date;
 
 import name.walnut.common.BaseEntity;
-import name.walnut.relation.RelationStatus;
 
 /**
  * 用户关系对象
@@ -14,7 +13,8 @@ public class Relation extends BaseEntity {
 	
 	private long userId;
 	private long relationId;
-	private RelationStatus relationStatus;
+	private boolean agree;
+	private boolean read;
 	private Date createDate;
 	
 	public long getUserId() {
@@ -29,11 +29,11 @@ public class Relation extends BaseEntity {
 	public void setRelationId(long relationId) {
 		this.relationId = relationId;
 	}
-	public RelationStatus getRelationStatus() {
-		return relationStatus;
+	public boolean isAgree() {
+		return agree;
 	}
-	public void setRelationStatus(RelationStatus relationStatus) {
-		this.relationStatus = relationStatus;
+	public void setAgree(boolean agree) {
+		this.agree = agree;
 	}
 	public Date getCreateDate() {
 		return createDate;
@@ -41,5 +41,11 @@ public class Relation extends BaseEntity {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
+	public boolean isRead() {
+		return read;
+	}
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
 }

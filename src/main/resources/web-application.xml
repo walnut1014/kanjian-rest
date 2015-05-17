@@ -10,7 +10,6 @@
    		 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<import resource="classpath:commonApplication.xml"/>
-	<import resource="classpath:shiro-spring.xml"/>
 		
 	<context:component-scan base-package="name.walnut">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />

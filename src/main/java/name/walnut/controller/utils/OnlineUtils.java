@@ -1,6 +1,11 @@
 package name.walnut.controller.utils;
 
-import name.walnut.utils.MD5Utils;
+import name.walnut.auth.dto.OnlineUser;
+import name.walnut.auth.entity.AuthAccount;
+import name.walnut.auth.service.PassportService;
+import name.walnut.common.BusinessException;
+import name.walnut.controller.passport.vo.LoginParam;
+import name.walnut.utils.SpringUtils;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -37,7 +42,7 @@ public class OnlineUtils {
 		
 		OnlineUser onlineUser = getOnlineAuth();
 		if(onlineUser == null)
-			throw new NullPointerException("用户未登录！");
+			throw new BusinessException("用户未登录！");
 		return onlineUser.getId();
 	}
 	
@@ -50,13 +55,14 @@ public class OnlineUtils {
 		return getOnlineAuth() != null;
 	}
 	
-	public static OnlineUser login(String account, String password) {
+	public static OnlineUser login(LoginParam loginParam) {
 		
-		//shiro登录
-		OnlineUser onLineUser = OnlineUtils.shiroLogin(account.toLowerCase(), MD5Utils.getMD5Sign(password));
+		AuthAccount authAccount = new AuthAccount();
+		authAccount.setMobilephone(loginParam.getMobilephone());
+		authAccount.setPassword(loginParam.getPassword());
 		
-		SystemContext.setSessionAttribute(Login_USER, onLineUser );
-		
+		OnlineUser onLineUser = SpringUtils.getBean(PassportService.class).login(authAccount);
+		SystemContext.setSessionAttribute(Login_USER, onLineUser);
 		return onLineUser;
 	}
 	

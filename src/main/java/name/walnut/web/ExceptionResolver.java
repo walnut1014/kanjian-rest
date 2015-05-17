@@ -32,6 +32,7 @@ public class ExceptionResolver extends AbstractHandlerExceptionResolver {
 		mv.addObject("success",false);
 		mv.addObject("message", ex.getMessage());
 		
+		ex.printStackTrace();
 		
 		if (ex instanceof BusinessException)
 			mv.addObject("data", ((BusinessException)ex).getData());
