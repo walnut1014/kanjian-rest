@@ -2,7 +2,6 @@ package name.walnut.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 import name.walnut.common.BusinessException;
 

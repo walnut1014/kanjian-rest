@@ -2,12 +2,10 @@ package name.walnut.core;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import name.walnut.auth.dao.UserDao;
-import name.walnut.auth.service.UserService;
 import name.walnut.core.pojo.Message;
 import name.walnut.relation.dao.FriendDao;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractSendMessage<T extends Message> implements SendMessage {
 
