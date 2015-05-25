@@ -29,6 +29,14 @@ public abstract class PushRequest extends JSONObject {
 		this.deviceTokens.add(deviceToken);
 	}
 	
+	public void resetDeviceToken() {
+		this.deviceTokens.clear();
+	}
+	
+	public boolean hasDeviceToken() {
+		return !deviceTokens.isEmpty();
+	}
+	
 	protected Object getData() {
 		return data;
 	}
