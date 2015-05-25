@@ -61,9 +61,10 @@ public class OnlineUtils {
 		authAccount.setMobilephone(loginParam.getMobilephone());
 		authAccount.setPassword(loginParam.getPassword());
 		
-		OnlineUser onLineUser = SpringUtils.getBean(PassportService.class).login(authAccount);
-		SystemContext.setSessionAttribute(Login_USER, onLineUser);
-		return onLineUser;
+		OnlineUser onlineUser = SpringUtils.getBean(PassportService.class).login(authAccount);
+		SystemContext.setSessionAttribute(Login_USER, onlineUser);
+		DeviceTokenContainer.INSTANCE.putDeviceToken(onlineUser.getId(), loginParam.getDeviceToken());
+		return onlineUser;
 	}
 	
 	/**

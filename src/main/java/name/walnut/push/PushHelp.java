@@ -7,9 +7,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
@@ -47,16 +49,28 @@ public enum PushHelp {
 		}
 	}
 	
-	public void push(String deviceToken, Object Date) {
+	public void push(String deviceToken, Object data) {
 		
+		PushRequest pushRequest = deviceToken.length() == 44 
+					? new AndroidPushRequest(PushType.unicast, data) 
+					: new IosPushRequest(PushType.unicast, data);
+		pushRequest.addDeviceToken(deviceToken);
+		
+		executePush(pushRequest);
 	}
 	
 	private void executePush(PushRequest pushRequest) {
 		
 		String sign = getSign(pushRequest.toJSONString());
-		try(CloseableHttpClient client = HttpClientBuilder.create().build();
-				CloseableHttpResponse response = 
-						client.execute(new HttpPost(Const.UMENG_URL+"?sign="+sign))){
+		try(CloseableHttpClient client = HttpClientBuilder.create().build()){
+			
+			HttpPost post = new HttpPost(Const.UMENG_URL+"?sign="+sign);
+			
+	        StringEntity se = new StringEntity(pushRequest.toJSONString(), "UTF-8");
+	        post.setEntity(se);
+	        
+	        HttpResponse response = client.execute(post);
+			
 			if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK){
 				 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 				 StringBuffer result = new StringBuffer();
@@ -79,6 +93,12 @@ public enum PushHelp {
 			logger.error("系统错误", e);
 		}
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		//"AqPDuoIEO8kfFp0eJjMeH5sb4wzfBcEYK_n_xd5a-tG2"
+		
+		PushHelp.INSTANCE.push("AqPDuoIEO8kfFp0eJjMeH5sb4wzfBcEYK_n_xd5a-tG2", "aa");
 	}
 
 	private Logger logger = Logger.getLogger(PushHelp.class);

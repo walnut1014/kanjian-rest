@@ -11,5 +11,6 @@ public enum DeviceTokenContainer {
 		deviceTokenMap.put(id, deviceToken);
 	}
 	
+	
 	private Map<Long, String> deviceTokenMap = new ConcurrentHashMap<>();
 }
