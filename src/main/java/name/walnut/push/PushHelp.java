@@ -9,7 +9,6 @@ import java.util.Set;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -95,6 +94,7 @@ public enum PushHelp {
 		return result;
 	}
 	
+	//TODO 测试
 	public static void main(String[] args) {
 		//"AqPDuoIEO8kfFp0eJjMeH5sb4wzfBcEYK_n_xd5a-tG2"
 		

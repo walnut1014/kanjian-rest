@@ -3,6 +3,7 @@ package name.walnut.mapper.core;
 import name.walnut.core.entity.MessageRecord;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 
 
 public interface MessageRecordMapper {
@@ -11,8 +12,7 @@ public interface MessageRecordMapper {
 	 * 插入消息记录
 	 * @param messageRecourd
 	 */
-	@Insert("INSERT INTO t_message_recourd(send_id,content,photo_path,is_reply,"
-			+ "main_message_id,node_start_no,node_end_no,create_date) "
+	@Insert("INSERT INTO t_message_recourd(" + SqlConst.MESSAGE_RECORD_COLUMN + ")"
 			+ "VALUES("
 			+ "#{senderId},"
 			+ "#{content},"
@@ -22,5 +22,10 @@ public interface MessageRecordMapper {
 			+ "#{nodeStartNo},"
 			+ "#{nodeEndNo},"
 			+ "#{createDate})")
-	void insert(MessageRecord messageRecourd);	
+	void insert(MessageRecord messageRecourd);
+	
+	
+	@Select("SELECT id," + SqlConst.MESSAGE_RECORD_COLUMN + " FROM t_message_record "
+			+ "WHERE id = #{id}")
+	MessageRecord get(long id);
 }	

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="common.sequenceStateMapper" >
+  <resultMap id="SequenceStateMap" type="SequenceState" >
+    <id column="seq_name" property="name" javaType="String"  jdbcType="VARCHAR" />
+    <result column="cache_size" property="cacheSize" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="INTEGER"/>
+    <result column="init_val" property="initValue" jdbcType="INTEGER"/>
+    <result column="step" property="step" jdbcType="INTEGER"/>
+    <result column="current_val" property="currentValue" jdbcType="BIGINT"/>
+    <result column="data_type" property="type"  typeHandler="com.daren.common.sequence.dao.mapper.SequenceTypeHandler"/>
+  </resultMap>
+  
+  <select id="selectByName" resultMap="SequenceStateMap" parameterType="String">
+  	SELECT seq_name,cache_size,init_val,step,data_type,current_val 
+  	FROM st_seq_state WHERE seq_name = #{param1}
+  	FOR UPDATE
+  </select>
+  
+  <update id="update">
+  	UPDATE st_seq_state SET current_val=#{currentValue} WHERE seq_name = #{name}
+  </update>
+  
+</mapper>

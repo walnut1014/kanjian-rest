@@ -13,9 +13,9 @@ public class MessageRecord extends BaseEntity {
 	private String content;
 	private String photoPath;
 	private boolean reply;
-	private long mainMessageId;
-	private long nodeStartNo;
-	private long nodeEndNo;
+	private long rootId;
+	private long nodeLeft;
+	private long nodeRight;
 	
 	public long getSenderId() {
 		return senderId;
@@ -41,23 +41,22 @@ public class MessageRecord extends BaseEntity {
 	public void setReply(boolean reply) {
 		this.reply = reply;
 	}
-	public long getMainMessageId() {
-		return mainMessageId;
+	public long getRootId() {
+		return rootId;
 	}
-	public void setMainMessageId(long mainMessageId) {
-		this.mainMessageId = mainMessageId;
+	public void setRootId(long rootId) {
+		this.rootId = rootId;
 	}
-	public long getNodeStartNo() {
-		return nodeStartNo;
+	public long getNodeLeft() {
+		return nodeLeft;
 	}
-	public void setNodeStartNo(long nodeStartNo) {
-		this.nodeStartNo = nodeStartNo;
+	public void setNodeLeft(long nodeLeft) {
+		this.nodeLeft = nodeLeft;
 	}
-	public long getNodeEndNo() {
-		return nodeEndNo;
+	public long getNodeRight() {
+		return nodeRight;
 	}
-	public void setNodeEndNo(long nodeEndNo) {
-		this.nodeEndNo = nodeEndNo;
+	public void setNodeRight(long nodeRight) {
+		this.nodeRight = nodeRight;
 	}
-	
 }

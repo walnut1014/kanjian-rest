@@ -1,8 +1,10 @@
 package name.walnut.core;
 
-import java.util.Set;
-
+import name.walnut.controller.utils.DeviceTokenContainer;
+import name.walnut.core.dao.MessageRecordDao;
+import name.walnut.core.entity.MessageRecord;
 import name.walnut.core.pojo.Message;
+import name.walnut.push.PushHelp;
 import name.walnut.relation.dao.FriendDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,12 @@ public abstract class AbstractSendMessage<T extends Message> implements SendMess
 		@SuppressWarnings("unchecked")
 		final T t = (T)message;
 		validate(t);
-		long startNo =adjustNode(message.getPrentId());
+		
+		long startNo = 0;
+		if(!t.isRoot())
+			startNo = adjustNode(t);
 		persistent(t, startNo);
+		
 		pushNotification(message.getSenderId());
 		pushCustomNotification(t);
 	}
@@ -29,7 +35,11 @@ public abstract class AbstractSendMessage<T extends Message> implements SendMess
 	 */
 	private void pushNotification(long senderId){
 		
-		Set<Long> ids = friendDao.getFriendIds(senderId);
+		PushHelp.INSTANCE.push(
+				DeviceTokenContainer.INSTANCE.find(
+							friendDao.getFriendIds(senderId))
+							
+				,"数据结构待定");
 	}
 	
 	/**
@@ -37,8 +47,8 @@ public abstract class AbstractSendMessage<T extends Message> implements SendMess
 	 * @param parentId 父节点ID
 	 * @return 调整后的节点序号，作为插入节点的开始编号
 	 */
-	private long adjustNode(long parentId) {
-		return 0;
+	protected long adjustNode(T t) {
+		return 1;
 	}
 	
 	/**
@@ -46,6 +56,10 @@ public abstract class AbstractSendMessage<T extends Message> implements SendMess
 	 * @param message
 	 */
 	private void persistent(Message message, long startNo) {
+		MessageRecord messageRecord = new MessageRecord();
+		messageRecord.setContent(message.g);
+		if(message.isRoot())
+			
 		
 	}
 	
@@ -57,5 +71,8 @@ public abstract class AbstractSendMessage<T extends Message> implements SendMess
 	
 	@Autowired
 	private FriendDao friendDao;
+	
+	@Autowired
+	private MessageRecordDao messageRecordDao;
 
 }
