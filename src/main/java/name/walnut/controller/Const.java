@@ -14,6 +14,9 @@ public final class Const {
 	//上传文件的头像组名称
 	public final static String HEAD_PHOTO_GROUP = "head_photo";
 	
+	//上传的照片组名称
+	public final static String PHOTO_GROUP = "photo_group";
+	
 	//下载文件根路径
 	public final static String DOWLOAD_PAHT = "file";
 }

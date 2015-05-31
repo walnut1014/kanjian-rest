@@ -3,12 +3,13 @@ package name.walnut.sequence.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import name.walnut.sequence.SequenceEnum;
+import name.walnut.sequence.SequenceManager;
+import name.walnut.sequence.dao.SequenceStateDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.daren.common.sequence.SequenceEnum;
-import com.daren.common.sequence.SequenceManager;
-import com.daren.common.sequence.dao.SequenceStateDao;
 
 @Service("sequenceManager")
 public class SequenceManagerImpl implements SequenceManager {
@@ -31,6 +32,7 @@ public class SequenceManagerImpl implements SequenceManager {
 		}
 		return sequence;
 	}
+
 	
 
 }

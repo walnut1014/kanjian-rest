@@ -6,6 +6,14 @@ package name.walnut.core.pojo;
  *
  */
 public class MainMessage extends Message {
+	
+	
+	
+	public MainMessage(String content, String photoPath) {
+		super(content);
+		this.photoPath = photoPath;
+	}
+
 	private String photoPath;
 
 	public String getPhotoPath() {

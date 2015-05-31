@@ -1,5 +1,6 @@
 package name.walnut.mapper.auth;
 
+import java.util.Date;
 import java.util.List;
 
 import name.walnut.auth.dto.OnlineUser;
@@ -99,4 +100,7 @@ public interface UserMapper {
 	 */
 	@Update("UPDATE t_user SET head_photo_path = #{path} WHERE id = #{id}")
 	void updateHeadPhoto(@Param("id")long id, @Param("path")String path);
+	
+	@Update("UPDATE t_user SET last_select_photo_time = #{date} WHERE id = #{id}")
+	void updateLastSelectTime(@Param("id")long id, @Param("date")Date date);
 }

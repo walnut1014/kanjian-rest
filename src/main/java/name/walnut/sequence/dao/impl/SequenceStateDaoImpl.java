@@ -1,11 +1,13 @@
 package name.walnut.sequence.dao.impl;
 
+import name.walnut.mapper.sequence.SequenceStateMapper;
 import name.walnut.sequence.SequenceEnum;
 import name.walnut.sequence.dao.SequenceStateDao;
+import name.walnut.sequence.entity.SequenceState;
 import name.walnut.sequence.impl.Sequence;
-import name.walnut.sequence.pojo.SequenceState;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +20,13 @@ public class SequenceStateDaoImpl implements SequenceStateDao {
 	@Override
 	public SequenceState getSequenceState(String name) {
 		
-		SequenceState state = sqlSession.selectOne(NAMESPACE+"selectByName",name);
-		return state;
+		return sequenceStateMapper.selectByName(name);
 	}
 
 	
 	@Override
 	public void update(SequenceState state){
-		sqlSession.update(NAMESPACE+ALIAS_UPDATE,state);
+		sequenceStateMapper.update(state.getName(), state.getCurrentValue());
 	}
 
 
@@ -35,10 +36,8 @@ public class SequenceStateDaoImpl implements SequenceStateDao {
 		
 		SequenceState state = this.getSequenceState(seqEnum.name());
 		if(state == null){
-			
-			String msg = "没有找到名为"+seqEnum.name()+"的序列";
-			DaoException ex = new DaoException(msg);
-			logger.error(msg, ex);
+			RuntimeException ex = new RuntimeException("没有找到名为"+seqEnum.name()+"的序列");
+			logger.error(ex.getMessage(), ex);
 			throw ex;
 		}
 		state.setCurrentValue(state.getCurrentValue()+state.getCacheSize()*state.getStep());
@@ -47,16 +46,15 @@ public class SequenceStateDaoImpl implements SequenceStateDao {
 		return new Sequence(state);
 	}
 	
-	private static final String NAMESPACE = "common.sequenceStateMapper.";
-	
-	private final Logger logger = Logger.getLogger(SequenceStateDaoImpl.class);
-
 	@Override
-	public Object getMapper() {
-		// TODO Auto-generated method stub
-		return null;
+	public SequenceStateMapper getMapper() {
+		return sequenceStateMapper;
 	}
 
+	@Autowired
+	private SequenceStateMapper sequenceStateMapper;
+	
+	private final Logger logger = Logger.getLogger(SequenceStateDaoImpl.class);
 
 
 }

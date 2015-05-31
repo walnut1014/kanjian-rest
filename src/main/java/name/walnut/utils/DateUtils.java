@@ -628,6 +628,17 @@ public final class DateUtils {
 	 * @return
 	 */
 	public static int getDifferenceDay(Date date1, Date date2) {
+
+		return (int) (getDifference(date1, date2)/DAY);
+	}
+	
+	/**
+	 * 获得两时间相差的毫秒数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static long getDifference(Date date1, Date date2) {
 		
 		Calendar calendar1 = Calendar.getInstance();
 		calendar1.setTime(date1);
@@ -635,13 +646,13 @@ public final class DateUtils {
 		Calendar calendar2 = Calendar.getInstance();
 		calendar2.setTime(date2);  
 		
-		return (int) ((new GregorianCalendar(
+		return new GregorianCalendar(
 				calendar1.get(Calendar.YEAR), 
 				calendar1.get(Calendar.MONTH), 
 				calendar1.get(Calendar.DAY_OF_MONTH)).getTimeInMillis() - new GregorianCalendar(
 						calendar2.get(Calendar.YEAR), 
 						calendar2.get(Calendar.MONTH), 
-						calendar2.get(Calendar.DAY_OF_MONTH)).getTimeInMillis()) / DAY);
+						calendar2.get(Calendar.DAY_OF_MONTH)).getTimeInMillis();
 	}
 
 	/**

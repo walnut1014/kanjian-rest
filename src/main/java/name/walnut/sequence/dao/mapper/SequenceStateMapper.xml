@@ -8,7 +8,6 @@
     <result column="init_val" property="initValue" jdbcType="INTEGER"/>
     <result column="step" property="step" jdbcType="INTEGER"/>
     <result column="current_val" property="currentValue" jdbcType="BIGINT"/>
-    <result column="data_type" property="type"  typeHandler="com.daren.common.sequence.dao.mapper.SequenceTypeHandler"/>
   </resultMap>
   
   <select id="selectByName" resultMap="SequenceStateMap" parameterType="String">

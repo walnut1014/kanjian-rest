@@ -1,6 +1,6 @@
 package name.walnut.sequence;
 
-import com.daren.common.sequence.impl.Sequence;
+import name.walnut.sequence.impl.Sequence;
 
 public interface SequenceManager {
 	

@@ -7,4 +7,8 @@ package name.walnut.core.pojo;
  */
 public class RepayMessage extends Message {
 
+	public RepayMessage(String content) {
+		super(content);
+	}
+
 }
