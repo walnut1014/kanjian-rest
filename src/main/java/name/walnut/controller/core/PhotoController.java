@@ -7,6 +7,7 @@ import name.walnut.controller.utils.UploadUtils;
 import name.walnut.core.SendMessage;
 import name.walnut.core.pojo.MainMessage;
 import name.walnut.core.service.MessageService;
+import name.walnut.web.vo.Normal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -21,13 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class PhotoController {
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public void upload(@RequestParam("photo") MultipartFile photo, 
+	public Normal upload(@RequestParam("photo") MultipartFile photo, 
 					   @RequestParam("content") String content) {
 		
 		Assert.isTrue(!photo.isEmpty());
 		MainMessage mainMessage = new MainMessage(content, 
 										UploadUtils.upload(photo, Const.PHOTO_GROUP));
 		mainMessageSender.Send(mainMessage);
+		return Normal.INSTANCE;
 	}
 	
 	@RequestMapping(value = "residueTime", method=RequestMethod.GET)
@@ -36,13 +38,15 @@ public class PhotoController {
 	}
 	
 	@RequestMapping(value = "delete", method=RequestMethod.POST)
-	public void delete(@RequestParam("id") long id) {
+	public Normal delete(@RequestParam("id") long id) {
 		messageService.deleteMessage(id);
+		return Normal.INSTANCE;
 	}
 	
 	@RequestMapping(value="selectTime", method=RequestMethod.POST)
-	public void setSelectTime() {
+	public Normal setSelectTime() {
 		messageService.setSelectPhotoTime();
+		return Normal.INSTANCE;
 	}
 	
 	@Resource(name="mainMessageSender")

@@ -10,6 +10,8 @@ public class OnlineUser{
 	private String nickName;
 	
 	private String headPhotoPath;
+	
+	private int photoCount;
 
 	public long getId() {
 		return id;
@@ -42,5 +44,12 @@ public class OnlineUser{
 	public void setHeadPhotoPath(String headPhotoPath) {
 		this.headPhotoPath = headPhotoPath;
 	}
-	
+
+	public int getPhotoCount() {
+		return photoCount;
+	}
+
+	public void setPhotoCount(int photoCount) {
+		this.photoCount = photoCount;
+	}
 }

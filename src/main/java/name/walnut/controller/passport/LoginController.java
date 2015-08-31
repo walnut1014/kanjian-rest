@@ -51,6 +51,15 @@ public class LoginController {
 		return Normal.INSTANCE;
 	}
 	
+	/**
+	 * 判断是否登陆
+	 * @return
+	 */
+	@RequestMapping(value="isLogin", method=RequestMethod.GET)
+	public boolean isLong() {
+		return OnlineUtils.isLogin();
+	}
+	
 	
 	@Autowired
 	private PassportService passportService;

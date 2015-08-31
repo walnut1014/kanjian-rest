@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import name.walnut.auth.dto.UserWithMobile;
+import name.walnut.auth.entity.User;
 import name.walnut.common.BaseDao;
 import name.walnut.mapper.auth.UserMapper;
 
@@ -23,4 +24,6 @@ public interface UserDao extends BaseDao<UserMapper> {
 	 * @return
 	 */
 	List<UserWithMobile> findUserByMobilephones(String[] mobilephones);
+	
+	User get(long id);
 }

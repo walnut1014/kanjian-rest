@@ -103,4 +103,20 @@ public interface UserMapper {
 	
 	@Update("UPDATE t_user SET last_select_photo_time = #{date} WHERE id = #{id}")
 	void updateLastSelectTime(@Param("id")long id, @Param("date")Date date);
+	
+	/**
+	 * 获得某用户发送的最后一条信息的发送时间
+	 * @param userId 用户ID
+	 * @return
+	 */
+	@Select("SELECT last_select_photo_time FROM t_user WHERE id = #{userId}")
+	Date getLastSelectTime(long userId);
+	
+	@Select("SELECT id,nick_name,head_photo_path FROM t_user WHERE id = #{id}")
+	@Results({
+		@Result(property="id", column="id", id=true),
+		@Result(property="headPhotoPath", column="head_photo_path"),
+		@Result(property="nickName", column="nick_name")
+	})
+	User get(long id);
 }

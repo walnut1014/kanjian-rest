@@ -32,6 +32,19 @@ public class FileDownloadController {
 			logger.error("系统错误", e);
 		}
 	}
+	
+	@RequestMapping(value = "photo_group/{path}", method = RequestMethod.GET)
+	public void getPhoto(@PathVariable("path") String path,
+			HttpServletResponse response) {
+		Properties properties = SpringUtils.getBean("kanjianConf");
+		try {
+			FileUtils.copyFile(new File(properties.getProperty("uploadPath")
+					+ "/" + Const.PHOTO_GROUP + "/" + path),
+					response.getOutputStream());
+		} catch (IOException e) {
+			logger.error("系统错误", e);
+		}
+	}
 
 	private Logger logger = Logger.getLogger(FileDownloadController.class);
 }

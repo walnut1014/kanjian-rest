@@ -1,11 +1,15 @@
 package name.walnut.mapper.core;
 
-import java.util.Date;
+import java.util.List;
 
+import name.walnut.auth.entity.User;
 import name.walnut.core.entity.MessageRecord;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 
@@ -15,32 +19,79 @@ public interface MessageRecordMapper {
 	 * 插入消息记录
 	 * @param messageRecourd
 	 */
-	@Insert("INSERT INTO t_message_record(id," + SqlConst.MESSAGE_RECORD_COLUMN + ")"
+	@Insert("INSERT INTO t_message_record(id," + SqlConst.MESSAGE_RECORD_COLUMN + ",batch_id)"
 			+ "VALUES("
 			+ "#{id},"
 			+ "#{senderId},"
 			+ "#{content},"
 			+ "#{photoPath},"
 			+ "#{reply},"
-			+ "#{createDate})")
+			+ "#{createDate},"
+			+ "#{parentId},"
+			+ "#{batchId})")
 	void insert(MessageRecord messageRecord);
 	
 	
-	@Select("SELECT id," + SqlConst.MESSAGE_RECORD_COLUMN + " FROM t_message_record "
+	@Select("SELECT id," + SqlConst.MESSAGE_RECORD_COLUMN + ",batch_id FROM t_message_record "
 			+ "WHERE id = #{id}")
+	@Results({
+		@Result(property="id", column="id", id=true),
+		@Result(property="senderId", column="sender_id"),
+		@Result(property="content", column="content"),
+		@Result(property="photoPath", column="photo_path"),
+		@Result(property="reply", column="is_reply"),
+		@Result(property="createDate", column="create_date"),
+		@Result(property="parentId", column="parent_id"),
+		@Result(property="batchId", column="batch_id")})
 	MessageRecord get(long id);
 
-	@Delete("DELETE FROM t_message_record WHERE id = #{id}")
-	void delete(long id);
+	@Delete("DELETE FROM t_message_record WHERE batch_id = #{id}")
+	void deleteByBatch(long id);
 	
-	/**
-	 * 获得某用户发送的最后一条信息的发送时间
-	 * @param userId 用户ID
-	 * @return
-	 */
-	@Select("SELECT create_date FROM t_message_record "
-			+ "WHERE sender_id = #{userId} AND is_reply = false "
-			+ "ORDER BY create_date DESC LIMIT 1")
-	Date getLastPhotoSendTime(long userId);
+	@Select("SELECT count(*) FROM t_message_record WHERE sender_id = #{senderId}")
+	int getPhotoCountBySenderId(long senderId);
+	
+	@Select("SELECT id," + SqlConst.MESSAGE_RECORD_COLUMN + " FROM t_message_record "
+			+ "WHERE sender_id IN ${ids} AND is_reply = false "
+			+ "ORDER BY create_date DESC LIMIT ${start}, ${count}")
+	@Results({
+		@Result(property="id", column="id", id=true),
+		@Result(property="senderId", column="sender_id"),
+		@Result(property="content", column="content"),
+		@Result(property="photoPath", column="photo_path"),
+		@Result(property="reply", column="is_reply"),
+		@Result(property="createDate", column="create_date"),
+		@Result(property="parentId", column="parent_id"),
+		@Result(property="batchId", column="batch_id")})
+	List<MessageRecord> findMainMessageRecordByIds(@Param("ids")String ids, 
+												   @Param("start")int start, 
+												   @Param("count")int count);
+	
+	
+	@Select("SELECT id,content,parent_id,create_date,batch_id,sender_id FROM t_message_record "
+			+ "WHERE batch_id IN ${ids} AND is_reply = true "
+			+ "ORDER BY create_date DESC;")
+	@Results({
+		@Result(property="id", column="id", id=true),
+		@Result(property="senderId", column="sender_id"),
+		@Result(property="content", column="content"),
+		@Result(property="photoPath", column="photo_path"),
+		@Result(property="reply", column="is_reply"),
+		@Result(property="createDate", column="create_date"),
+		@Result(property="parentId", column="parent_id"),
+		@Result(property="batchId", column="batch_id")})
+	List<MessageRecord> findRepayMessageRecordByIds(@Param("ids")String ids);
+	
+	@Select("SELECT DISTINCT sender_id,nick_name FROM t_message_record m "
+			+ "JOIN t_user u ON m.sender_id = u.id WHERE batch_id IN ${ids};")
+	@Results({
+		@Result(property="id", column="sender_id", id=true),
+		@Result(property="nickName", column="nick_name")})
+	List<User> findNichNameByBatchId(@Param("ids")String ids);
+	
+	@Select("SELECT DISTINCT friend_id FROM t_message_record m "
+			+ "JOIN t_friend f ON f.friend_id = m.sender_id "
+			+ "WHERE batch_id = #{param1} and f.user_id = #{param2}")
+	List<Long> findBatchFriendId(long batchId, long userId);
 	
 }	

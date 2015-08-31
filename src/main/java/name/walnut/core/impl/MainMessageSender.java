@@ -1,6 +1,8 @@
 package name.walnut.core.impl;
 
+import name.walnut.auth.dao.UserDao;
 import name.walnut.common.BusinessException;
+import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.core.AbstractMessageSender;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.core.pojo.MainMessage;
@@ -14,15 +16,15 @@ public class MainMessageSender extends AbstractMessageSender<MainMessage> {
 
 	@Override
 	protected void validate(MainMessage message) {
-		if(messageService.getLastSelectResidueTimeTo24() > 0)
-			throw new BusinessException("距离上一次发送照片未超过24小时");
 		if(message.getContent().length() > 200)
 			throw new BusinessException("文字内容长度超过200");
 	}
 
 	@Override
 	protected void customBuild(MessageRecord messageRecord, MainMessage message) {
+		messageRecord.setBatchId(messageRecord.getId());
 		messageRecord.setPhotoPath(message.getPhotoPath());
+		userDao.getMapper().updateLastSelectTime(OnlineUtils.getOnlineUserId(), null);
 	}
 
 	@Override
@@ -32,4 +34,7 @@ public class MainMessageSender extends AbstractMessageSender<MainMessage> {
 
 	@Autowired
 	private MessageService messageService;
+	
+	@Autowired
+	private UserDao userDao;
 }

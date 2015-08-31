@@ -42,7 +42,7 @@ public class OnlineUtils {
 		
 		OnlineUser onlineUser = getOnlineAuth();
 		if(onlineUser == null)
-			throw new BusinessException("用户未登录！");
+			throw new BusinessException("用户未登录！", ERROR_UN_LONG);
 		return onlineUser.getId();
 	}
 	
@@ -102,6 +102,8 @@ public class OnlineUtils {
 		SystemContext.removeSessionAttribute(Login_USER);
 		SystemContext.clearSession();
 	}
+	
+	private static final int ERROR_UN_LONG = 101;
 }
 
 

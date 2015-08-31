@@ -7,6 +7,7 @@ import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.entity.User;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
+import name.walnut.core.dao.MessageRecordDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class PassportServiceImpl implements PassportService {
 		OnlineUser onlineUser = userDao.getMapper().getOnlineUser(authAccount);
 		if(onlineUser == null)
 			throw new BusinessException("登陆密码错误", -2);
+		
+		onlineUser.setPhotoCount(messageRecordDao.getMapper()
+				.getPhotoCountBySenderId(onlineUser.getId()));
 		
 		return onlineUser;
 	}
@@ -56,6 +60,9 @@ public class PassportServiceImpl implements PassportService {
 	
 	@Autowired
 	private UserDao userDao;
-
+	
+	@Autowired
+	private MessageRecordDao messageRecordDao;
+	
 
 }

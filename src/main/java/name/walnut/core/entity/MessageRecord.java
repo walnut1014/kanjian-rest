@@ -9,15 +9,17 @@ import name.walnut.common.BaseEntity;
  */
 public class MessageRecord extends BaseEntity {
 	
-	private long senderId;
+	private Long senderId;
 	private String content;
 	private String photoPath;
 	private boolean reply;
+	private Long parentId;
+	private long batchId;
 	
-	public long getSenderId() {
+	public Long getSenderId() {
 		return senderId;
 	}
-	public void setSenderId(long senderId) {
+	public void setSenderId(Long senderId) {
 		this.senderId = senderId;
 	}
 	public String getContent() {
@@ -37,5 +39,17 @@ public class MessageRecord extends BaseEntity {
 	}
 	public void setReply(boolean reply) {
 		this.reply = reply;
+	}
+	public Long getParentId() {
+		return parentId;
+	}
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+	public long getBatchId() {
+		return batchId;
+	}
+	public void setBatchId(long batchId) {
+		this.batchId = batchId;
 	}
 }

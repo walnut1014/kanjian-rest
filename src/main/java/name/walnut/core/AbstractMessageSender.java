@@ -1,10 +1,9 @@
 package name.walnut.core;
 
-import name.walnut.controller.utils.DeviceTokenContainer;
 import name.walnut.core.dao.MessageRecordDao;
+import name.walnut.core.dao.NotificationDao;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.core.pojo.Message;
-import name.walnut.push.PushHelp;
 import name.walnut.relation.dao.FriendDao;
 import name.walnut.sequence.SequenceEnum;
 
@@ -15,7 +14,7 @@ public abstract class AbstractMessageSender<T extends Message> implements SendMe
 
 	@Override
 	@Transactional
-	public void Send(Message message) {
+	public long Send(Message message) {
 		
 		@SuppressWarnings("unchecked")
 		final T t = (T)message;
@@ -25,8 +24,10 @@ public abstract class AbstractMessageSender<T extends Message> implements SendMe
 		customBuild(messageRecord, t);
 		messageRecordDao.insert(messageRecord);
 		
-		pushNotification(message.getSenderId());
+		pushNotification(message);
 		pushCustomNotification(t);
+		
+		return messageRecord.getBatchId();
 	}
 	
 	protected abstract void validate(T t);
@@ -35,13 +36,12 @@ public abstract class AbstractMessageSender<T extends Message> implements SendMe
 	 * 发送通知
 	 * @param senderId
 	 */
-	private void pushNotification(long senderId){
+	private void pushNotification(Message message){
 		
-		PushHelp.INSTANCE.push(
+		/*PushHelp.INSTANCE.push(
 				DeviceTokenContainer.INSTANCE.find(
 							friendDao.getFriendIds(senderId))
-							
-				,"数据结构待定");
+				,"数据结构待定");*/
 	}
 	
 	/**
@@ -55,6 +55,7 @@ public abstract class AbstractMessageSender<T extends Message> implements SendMe
 		messageRecord.setSenderId(message.getSenderId());
 		messageRecord.setId(SequenceEnum.MESSAGE_RECORD.next());
 		messageRecord.setContent(message.getContent());
+		message.setId(messageRecord.getId());
 		
 		return messageRecord;
 	}
@@ -72,5 +73,8 @@ public abstract class AbstractMessageSender<T extends Message> implements SendMe
 	
 	@Autowired
 	private MessageRecordDao messageRecordDao;
+	
+	@Autowired
+	private NotificationDao notificationDao;
 
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import name.walnut.auth.dao.UserDao;
 import name.walnut.auth.dto.UserWithMobile;
+import name.walnut.auth.entity.User;
 import name.walnut.mapper.auth.UserMapper;
 import name.walnut.utils.StringUtils;
 
@@ -40,6 +41,11 @@ public class UserDaoImpl implements UserDao {
 		if(CollectionUtils.isEmpty(mobileSet))
 			return new ArrayList<>();
 		return userMapper.findUserByMobilephones(StringUtils.getInString(mobileSet));
+	}
+	
+	@Override
+	public User get(long id) {
+		return userMapper.get(id);
 	}
 	
 	

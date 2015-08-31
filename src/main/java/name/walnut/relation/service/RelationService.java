@@ -60,4 +60,5 @@ public interface RelationService {
 	 * @return
 	 */
 	Map<Long, UserWithMobile> getOtherMap(List<Relation> relations);
+	
 }

@@ -38,7 +38,7 @@ public interface RelationMapper {
 	 * @return
 	 */
 	@Select("SELECT id,user_id,relation_id,is_agree FROM t_relation "
-			+ "WHERE user_id = #{userId} OR relation_id = #{relationId}")
+			+ "WHERE user_id = #{userId} OR relation_id = #{relationId} ORDER BY create_data DESC")
 	@Results({
 		@Result(column="user_id", property="userId"),
 		@Result(column="relation_id", property="relationId"),
