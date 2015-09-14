@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import name.walnut.common.BaseDao;
+import name.walnut.common.DeprecatedBaseDao;
 import name.walnut.common.Page;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.mapper.core.MessageRecordMapper;
 
-public interface MessageRecordDao extends BaseDao<MessageRecordMapper> {
+public interface MessageRecordDao extends DeprecatedBaseDao<MessageRecordMapper> {
 	
 	
 	/**

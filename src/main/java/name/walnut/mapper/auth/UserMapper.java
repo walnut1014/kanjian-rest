@@ -3,11 +3,6 @@ package name.walnut.mapper.auth;
 import java.util.Date;
 import java.util.List;
 
-import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.dto.UserWithMobile;
-import name.walnut.auth.entity.AuthAccount;
-import name.walnut.auth.entity.User;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +10,9 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import name.walnut.auth.dto.UserWithMobile;
+import name.walnut.auth.entity.User;
 
 
 public interface UserMapper {
@@ -27,15 +25,6 @@ public interface UserMapper {
 	@Options(useGeneratedKeys=true, keyProperty= "id")
 	long insert(User user);
 	
-	@Select("SELECT auth.id,mobilephone,nick_name,head_photo_path FROM t_auth_account "
-			+ "auth JOIN t_user u ON auth.id = u.id "
-			+ "WHERE mobilephone = #{mobilephone} "
-			+ "AND `password` = #{password}")
-	@Results({
-			@Result(property="nickName", column="nick_name"),
-			@Result(property="headPhotoPath", column="head_photo_path"),
-			@Result(id=true, property="id", column="id")})
-	OnlineUser getOnlineUser(AuthAccount authAccount);
 	
 	/**
 	 * 通过IDs用户及手机号

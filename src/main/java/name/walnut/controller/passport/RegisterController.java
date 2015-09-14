@@ -2,8 +2,14 @@ package name.walnut.controller.passport;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.entity.User;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
@@ -13,13 +19,6 @@ import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.controller.utils.UploadUtils;
 import name.walnut.utils.StringUtils;
 import name.walnut.web.vo.Normal;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/passport")
@@ -69,16 +68,14 @@ public class RegisterController {
 				StringUtils.isEmpty(password)) 
 			throw new BusinessException("昵称与密码不能为空");
 		
-		AuthAccount authAccount = new AuthAccount();
-		authAccount.setPassword(password);
-		authAccount.setMobilephone(session.getAttribute(Const.MOBILEPHONE).toString());
-		
-		passportService.register(authAccount, user);
+		user.setPassword(password);
+		user.setMobilephone(session.getAttribute(Const.MOBILEPHONE).toString());
+		passportService.register(user);
 		
 		LoginParam loginParam = new LoginParam();
 		loginParam.setDeviceToken(deviceToken);
-		loginParam.setMobilephone(authAccount.getMobilephone());
-		loginParam.setPassword(authAccount.getPassword());
+		loginParam.setMobilephone(user.getMobilephone());
+		loginParam.setPassword(user.getPassword());
 		//返回用户头像路径
 		return OnlineUtils.login(loginParam);
 	}

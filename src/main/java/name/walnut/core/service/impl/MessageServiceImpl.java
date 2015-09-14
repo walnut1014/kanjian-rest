@@ -46,8 +46,9 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public long getLastSelectResidueTimeTo24() {
 		
-		Date lastSendTime = userDao.getMapper().getLastSelectTime(OnlineUtils
-																	.getOnlineUserId());
+//		Date lastSendTime = userDao.getMapper().getLastSelectTime(OnlineUtils
+//																	.getOnlineUserId());
+		Date lastSendTime = null;
 		if(lastSendTime == null)
 			return 0;
 		
@@ -60,7 +61,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Override
 	public void setSelectPhotoTime() {
-		userDao.getMapper().updateLastSelectTime(OnlineUtils.getOnlineUserId(), DateUtils.getNow());
+//		userDao.getMapper().updateLastSelectTime(OnlineUtils.getOnlineUserId(), DateUtils.getNow());
 	}
 	
 	@Override

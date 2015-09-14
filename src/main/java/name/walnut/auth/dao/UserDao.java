@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.dto.UserWithMobile;
 import name.walnut.auth.entity.User;
 import name.walnut.common.BaseDao;
-import name.walnut.mapper.auth.UserMapper;
 
-public interface UserDao extends BaseDao<UserMapper> {
+public interface UserDao extends BaseDao<User> {
 	
 	/**
 	 * 通过ID集合获得用户
@@ -25,5 +25,18 @@ public interface UserDao extends BaseDao<UserMapper> {
 	 */
 	List<UserWithMobile> findUserByMobilephones(String[] mobilephones);
 	
-	User get(long id);
+	/**
+	 * 通过手机号和密码获得在线用户
+	 * @param authAccount
+	 * @return
+	 */
+	OnlineUser getOnlineUser(String mobilephone, String password);
+	
+	/**
+	 * 通过手机号获得用户对象
+	 * @param mobilephone
+	 * @return
+	 */
+	User getUserByMobilephone(String mobilephone);
+	
 }

@@ -1,25 +1,13 @@
 package name.walnut.auth.dto;
 
+import org.hibernate.annotations.Formula;
 
-public class OnlineUser{
+public class OnlineUser {
 
-	private long id;
-	
 	private String mobilephone;
-	
 	private String nickName;
-	
 	private String headPhotoPath;
-	
 	private int photoCount;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getMobilephone() {
 		return mobilephone;

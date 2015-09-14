@@ -1,6 +1,7 @@
 package name.walnut.common;
 
 public interface BaseDao<T> {
+	T get(long id);
 	
-	T getMapper();
+	long save(T t);	
 }

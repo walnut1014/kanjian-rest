@@ -1,5 +1,7 @@
 package name.walnut.core.entity;
 
+import java.util.Date;
+
 import name.walnut.common.BaseEntity;
 
 /**
@@ -15,6 +17,7 @@ public class MessageRecord extends BaseEntity {
 	private boolean reply;
 	private Long parentId;
 	private long batchId;
+	private Date createDate;
 	
 	public Long getSenderId() {
 		return senderId;
@@ -51,5 +54,11 @@ public class MessageRecord extends BaseEntity {
 	}
 	public void setBatchId(long batchId) {
 		this.batchId = batchId;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }

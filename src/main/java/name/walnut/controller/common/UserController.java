@@ -38,6 +38,11 @@ public class UserController {
 		return OnlineUtils.getOnlineAuth();
 	}
 	
+//	@RequestMapping(value="test")
+//	public void testTranstr() {
+//		userService.test();
+//	}
+	
 	public boolean isOver24Hour() {
 		return true;
 	}

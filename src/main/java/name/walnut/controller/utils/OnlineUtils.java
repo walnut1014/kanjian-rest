@@ -1,16 +1,12 @@
 package name.walnut.controller.utils;
 
+import org.apache.shiro.SecurityUtils;
+
 import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.entity.AuthAccount;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
 import name.walnut.controller.passport.vo.LoginParam;
 import name.walnut.utils.SpringUtils;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 
 /**
  * 用户在线工具类
@@ -57,40 +53,11 @@ public class OnlineUtils {
 	
 	public static OnlineUser login(LoginParam loginParam) {
 		
-		AuthAccount authAccount = new AuthAccount();
-		authAccount.setMobilephone(loginParam.getMobilephone());
-		authAccount.setPassword(loginParam.getPassword());
-		
-		OnlineUser onlineUser = SpringUtils.getBean(PassportService.class).login(authAccount);
+		OnlineUser onlineUser = SpringUtils.getBean(PassportService.class)
+										   .login(loginParam.getMobilephone(), loginParam.getPassword());
 		SystemContext.setSessionAttribute(Login_USER, onlineUser);
 		DeviceTokenContainer.INSTANCE.putDeviceToken(onlineUser.getId(), loginParam.getDeviceToken());
 		return onlineUser;
-	}
-	
-	/**
-	 * shiro登录方法
-	 * @param account  账号
-	 * @param password 密码
-	 * @return OnlineUser
-	 */
-	private static OnlineUser  shiroLogin(String account, String password) {
-		
-		try {
-				
-			UsernamePasswordToken token = new UsernamePasswordToken(account,password);
-			
-			SecurityUtils.getSubject().login(token);
-			Subject subject = SecurityUtils.getSubject();
-			Session session = subject.getSession(true);
-			session.setAttribute("shiroUser", subject);
-			OnlineUser onLineUser = (OnlineUser) subject.getPrincipal();
-			
-			return onLineUser;
-			
-		} catch (Exception e) {
-			
-			throw new RuntimeException("登录失败");
-		}
 	}
 	
 	/**

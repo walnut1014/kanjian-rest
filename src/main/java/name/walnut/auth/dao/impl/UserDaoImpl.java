@@ -7,24 +7,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import name.walnut.auth.dao.UserDao;
-import name.walnut.auth.dto.UserWithMobile;
-import name.walnut.auth.entity.User;
-import name.walnut.mapper.auth.UserMapper;
-import name.walnut.utils.StringUtils;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import name.walnut.auth.dao.UserDao;
+import name.walnut.auth.dto.OnlineUser;
+import name.walnut.auth.dto.UserWithMobile;
+import name.walnut.auth.entity.User;
+import name.walnut.common.HibernateGenerationDao;
+import name.walnut.mapper.auth.UserMapper;
+import name.walnut.utils.StringUtils;
+
 @Repository
-public class UserDaoImpl implements UserDao {
+//TODO 待改造
+public class UserDaoImpl extends HibernateGenerationDao<User> implements UserDao {
 
 	@Override
 	public Map<Long, UserWithMobile> findUserByIds(Set<Long> ids) {
 		
-		List<UserWithMobile> users = userMapper.findUserByIds(StringUtils.getInString(ids));
+		List<UserWithMobile> users = null/*= userMapper.findUserByIds(StringUtils.getInString(ids))*/;
 		Map<Long, UserWithMobile> result = new HashMap<>();
 		for(UserWithMobile um : users) {
 			result.put(um.getId(), um);
@@ -40,25 +42,24 @@ public class UserDaoImpl implements UserDao {
 		
 		if(CollectionUtils.isEmpty(mobileSet))
 			return new ArrayList<>();
-		return userMapper.findUserByMobilephones(StringUtils.getInString(mobileSet));
+		//return userMapper.findUserByMobilephones(StringUtils.getInString(mobileSet));
+		return null;
 	}
-	
-	@Override
-	public User get(long id) {
-		return userMapper.get(id);
-	}
-	
-	
-	@Override
-	public UserMapper getMapper() {
-		
-		return userMapper;
-	}
-	
-	@Autowired
-	private UserMapper userMapper;
-	
-	@Autowired
-	private SqlSession sqlSession;
 
+	@Override
+	public OnlineUser getOnlineUser(String mobilephone, String password) {
+		
+		return (OnlineUser) getSession().createQuery("FROM OnlineUser WHERE mobilephone=:mobilephone AND password=:password")
+				.setString("mobilephone", mobilephone)
+				.setString("password", password)
+				.uniqueResult();
+	}
+
+	@Override
+	public User getUserByMobilephone(String mobilephone) {
+		return (User) getSession().createQuery("from User where mobilephone=:mobilephone")
+						   .setString("mobilephone", mobilephone).uniqueResult();
+	}
+
+	
 }

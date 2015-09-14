@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<sql-query name="getOnlineUser">
+		<return alias="onlineUser" class="name.walnut.auth.dto.OnlineUser"/>
+		SELECT auth.id AS {onlineUser.id},
+			   mobilephone AS {onlineUser.mobilephone},
+			   nick_name AS {onlineUser.nickName},
+			   head_photo_path AS {onlineUser.headPhotoPath} 
+			FROM t_auth_account auth JOIN t_user u ON auth.id = u.id
+		WHERE mobilephone = :mobilephone
+			  AND password = :password
+	</sql-query>
+</hibernate-mapping>

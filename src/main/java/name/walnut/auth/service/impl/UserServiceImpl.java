@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import name.walnut.auth.dao.UserDao;
 import name.walnut.auth.dto.UserQueryResult;
 import name.walnut.auth.dto.UserWithMobile;
@@ -21,12 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserQueryResult> findUserByMobile(String mobilephone) {
 
-		UserWithMobile um = userDao.getMapper().findUserByMobilephone(mobilephone);
+		//UserWithMobile um = userDao.findUserByMobilephone(mobilephone);
+		UserWithMobile um  = null;
 		if(um == null)
 			return new ArrayList<>();
 		Relation query = new Relation();
@@ -85,7 +89,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void modifyNickName(String nickName) {
-		userDao.getMapper().updateNickName(OnlineUtils.getOnlineUserId(), nickName);
+//		userDao.getMapper().updateNickName(OnlineUtils.getOnlineUserId(), nickName);
 	}
 	
 	@Override
@@ -96,7 +100,7 @@ public class UserServiceImpl implements UserService {
 		if(oldFile.exists())
 			FileUtils.deleteQuietly(oldFile);
 		
-		userDao.getMapper().updateHeadPhoto(OnlineUtils.getOnlineUserId(), path);
+//		userDao.getMapper().updateHeadPhoto(OnlineUtils.getOnlineUserId(), path);
 	}
 	
 	/**
@@ -114,6 +118,7 @@ public class UserServiceImpl implements UserService {
 		throw new BusinessException("系统错误");
 	}
 	
+	
 	@Autowired
 	private UserDao userDao;
 	
@@ -122,4 +127,5 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RelationService relationService;
+
 }

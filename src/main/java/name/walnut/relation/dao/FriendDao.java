@@ -2,11 +2,11 @@ package name.walnut.relation.dao;
 
 import java.util.Set;
 
-import name.walnut.common.BaseDao;
+import name.walnut.common.DeprecatedBaseDao;
 import name.walnut.mapper.relation.FriendMapper;
 import name.walnut.relation.entity.Friend;
 
-public interface FriendDao extends BaseDao<FriendMapper> {
+public interface FriendDao extends DeprecatedBaseDao<FriendMapper> {
 	
 	void insert(Friend friend);
 	

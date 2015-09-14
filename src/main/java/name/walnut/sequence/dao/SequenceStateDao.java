@@ -1,6 +1,6 @@
 package name.walnut.sequence.dao;
 
-import name.walnut.common.BaseDao;
+import name.walnut.common.DeprecatedBaseDao;
 import name.walnut.mapper.sequence.SequenceStateMapper;
 import name.walnut.sequence.SequenceEnum;
 import name.walnut.sequence.entity.SequenceState;
@@ -8,7 +8,7 @@ import name.walnut.sequence.impl.Sequence;
 
 
 
-public interface SequenceStateDao extends BaseDao<SequenceStateMapper> {
+public interface SequenceStateDao extends DeprecatedBaseDao<SequenceStateMapper> {
 	
 	SequenceState getSequenceState(String name);
 	

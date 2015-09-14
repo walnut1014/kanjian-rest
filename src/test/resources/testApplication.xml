@@ -17,12 +17,12 @@
     http://www.springframework.org/schema/util/spring-util-4.0.xsd"
   	>
 
-	<util:properties id="kanjianConf" location="file:D:\kanjianConf.properties" /> 
-	
 	<context:component-scan base-package="name.walnut">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
+	<util:properties id="kanjianConf" location="file:/private/etc/database.properties" /> 
+	
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="driver" value="#{kanjianConf.driver}" />
 		<property name="driverUrl" value="#{kanjianConf.url}" />
@@ -34,6 +34,27 @@
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	  <property name="basePackage" value="name.walnut.mapper" />
+	</bean>
+	
+	<bean id="globalNamingStrategy" class="name.walnut.support.GlobalNamingStrategy" />
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="namingStrategy" ref="globalNamingStrategy"/>
+		<property name="packagesToScan">  
+	       <list>  
+	           <value>name.walnut.*</value>  
+	       </list>  
+	    </property>   
+        <property name="hibernateProperties">  
+            <props>  
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>  
+                <prop key="hibernate.hbm2ddl.auto">update</prop>  
+                <prop key="hibernate.show_sql">true</prop>  
+                <prop key="hiberante.format_sql">true</prop>  
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> 
+            </props>  
+        </property>  
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" >
@@ -54,12 +75,11 @@
 	</bean>
 	
 	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-		<property name="globalRollbackOnParticipationFailure" value="false" /> 
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="*" propagation="REQUIRED" />
 		</tx:attributes>
@@ -68,7 +88,7 @@
 	<aop:config>
         <aop:pointcut expression="execution(* *..service.impl.*Impl.*(..))" id="serviceMethod"/>
 		<aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice" />
-	</aop:config>
+	</aop:config> -->
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 

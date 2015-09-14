@@ -1,68 +1,55 @@
 package name.walnut.auth.service.impl;
 
-import name.walnut.auth.dao.AuthAccountDao;
-import name.walnut.auth.dao.UserDao;
-import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.entity.AuthAccount;
-import name.walnut.auth.entity.User;
-import name.walnut.auth.service.PassportService;
-import name.walnut.common.BusinessException;
-import name.walnut.core.dao.MessageRecordDao;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import name.walnut.auth.dao.UserDao;
+import name.walnut.auth.dto.OnlineUser;
+import name.walnut.auth.entity.User;
+import name.walnut.auth.service.PassportService;
+import name.walnut.common.BusinessException;
+
 @Service
+@Transactional
 public class PassportServiceImpl implements PassportService {
 	
 	@Override
-	public OnlineUser login(AuthAccount authAccount) {
+	public OnlineUser login(String mobilephone, String password) {
 		
-		if(authAccountDao.getMapper().getCountByMobilephone(authAccount.getMobilephone()) == 0)
-			throw new BusinessException("您的手机号"+authAccount.getMobilephone()+"还未注册", -1);
+		if(!isExist(mobilephone))
+			throw new BusinessException("您的手机号"+mobilephone+"还未注册", -1);
 		
-		OnlineUser onlineUser = userDao.getMapper().getOnlineUser(authAccount);
+		OnlineUser onlineUser = userDao.getOnlineUser(mobilephone, password);
 		if(onlineUser == null)
 			throw new BusinessException("登陆密码错误", -2);
-		
-		onlineUser.setPhotoCount(messageRecordDao.getMapper()
-				.getPhotoCountBySenderId(onlineUser.getId()));
-		
+				
 		return onlineUser;
 	}
 	
 	@Override
-	public void register(AuthAccount authAccount, User user) {
+	public void register(User user) {
 		
-		if(isExist(authAccount.getMobilephone()))
+		if(isExist(user.getMobilephone()))
 			throw new BusinessException("此用户已注册");
 		
-		long userId = authAccountDao.insert(authAccount);
-		user.setId(userId);
-		userDao.getMapper().insert(user);
+		userDao.save(user);
 	}
 	
 	@Override
 	public boolean isExist(String mobilephone) {
 		
-		return authAccountDao.getMapper().getCountByMobilephone(mobilephone) > 0;	
+		return userDao.getUserByMobilephone(mobilephone) != null;	
 	}
 	
 	@Override
 	public void setPassword(String mobilephone, String newPassword) {
 		
-		authAccountDao.getMapper().updatePassowrdByMobilephone(mobilephone, newPassword);
+		userDao.getUserByMobilephone(mobilephone).setPassword(newPassword);
 	}
-	
-	
-	@Autowired
-	private AuthAccountDao authAccountDao;
 	
 	@Autowired
 	private UserDao userDao;
-	
-	@Autowired
-	private MessageRecordDao messageRecordDao;
-	
 
 }

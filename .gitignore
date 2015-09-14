@@ -7,3 +7,4 @@ target/*
 META-INF/*
 /bin
 /target
+/build/

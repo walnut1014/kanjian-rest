@@ -24,7 +24,7 @@ public class MainMessageSender extends AbstractMessageSender<MainMessage> {
 	protected void customBuild(MessageRecord messageRecord, MainMessage message) {
 		messageRecord.setBatchId(messageRecord.getId());
 		messageRecord.setPhotoPath(message.getPhotoPath());
-		userDao.getMapper().updateLastSelectTime(OnlineUtils.getOnlineUserId(), null);
+//		userDao.getMapper().updateLastSelectTime(OnlineUtils.getOnlineUserId(), null);
 	}
 
 	@Override
