@@ -1,14 +1,13 @@
 package name.walnut.relation.dao.impl;
 
-import java.util.Set;
-
 import name.walnut.mapper.relation.FriendMapper;
 import name.walnut.relation.dao.FriendDao;
-import name.walnut.relation.entity.Friend;
+import name.walnut.common.entity.Friend;
 import name.walnut.utils.DateUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Set;
 
 @Repository
 public class FriendDaoImpl implements FriendDao {
