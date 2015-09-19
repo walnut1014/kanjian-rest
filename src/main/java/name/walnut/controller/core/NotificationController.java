@@ -1,16 +1,14 @@
 package name.walnut.controller.core;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import name.walnut.core.dto.NewMessage;
 import name.walnut.core.service.NotificationService;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/notification")

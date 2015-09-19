@@ -1,23 +1,14 @@
 package name.walnut.auth.dao.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
-
 import name.walnut.auth.dao.UserDao;
 import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.dto.UserWithMobile;
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 import name.walnut.common.HibernateGenerationDao;
-import name.walnut.mapper.auth.UserMapper;
-import name.walnut.utils.StringUtils;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 @Repository
 //TODO 待改造

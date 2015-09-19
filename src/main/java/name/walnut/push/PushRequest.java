@@ -1,11 +1,10 @@
 package name.walnut.push;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.builder.BuilderException;
 
-import com.alibaba.fastjson.JSONObject;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class PushRequest extends JSONObject {
 

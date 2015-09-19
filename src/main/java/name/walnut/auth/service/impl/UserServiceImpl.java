@@ -1,12 +1,5 @@
 package name.walnut.auth.service.impl;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.transaction.Transactional;
-
 import name.walnut.auth.dao.UserDao;
 import name.walnut.auth.dto.UserQueryResult;
 import name.walnut.auth.dto.UserWithMobile;
@@ -17,10 +10,15 @@ import name.walnut.controller.utils.UploadUtils;
 import name.walnut.relation.dao.RelationDao;
 import name.walnut.relation.entity.Relation;
 import name.walnut.relation.service.RelationService;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional

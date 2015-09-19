@@ -5,7 +5,6 @@ import name.walnut.sequence.SequenceEnum;
 import name.walnut.sequence.dao.SequenceStateDao;
 import name.walnut.sequence.entity.SequenceState;
 import name.walnut.sequence.impl.Sequence;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

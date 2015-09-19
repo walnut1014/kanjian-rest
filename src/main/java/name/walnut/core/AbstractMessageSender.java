@@ -6,7 +6,6 @@ import name.walnut.core.entity.MessageRecord;
 import name.walnut.core.pojo.Message;
 import name.walnut.relation.dao.FriendDao;
 import name.walnut.sequence.SequenceEnum;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

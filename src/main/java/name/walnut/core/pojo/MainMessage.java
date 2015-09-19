@@ -1,9 +1,9 @@
 package name.walnut.core.pojo;
 
+import name.walnut.core.entity.MessageRecord;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import name.walnut.core.entity.MessageRecord;
 
 /**
  * 带照片的主消息

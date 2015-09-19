@@ -1,12 +1,11 @@
 package name.walnut.controller.utils;
 
-import org.apache.shiro.SecurityUtils;
-
 import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
 import name.walnut.controller.passport.vo.LoginParam;
 import name.walnut.utils.SpringUtils;
+import org.apache.shiro.SecurityUtils;
 
 /**
  * 用户在线工具类

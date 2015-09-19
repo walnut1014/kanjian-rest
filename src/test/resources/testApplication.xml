@@ -43,7 +43,7 @@
 		<property name="namingStrategy" ref="globalNamingStrategy"/>
 		<property name="packagesToScan">  
 	       <list>  
-	           <value>name.walnut.*</value>  
+	           <value>name.walnut.common.entity</value>
 	       </list>  
 	    </property>   
         <property name="hibernateProperties">  

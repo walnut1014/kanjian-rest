@@ -1,36 +1,36 @@
-package name.walnut.auth.entity;
+package name.walnut.common.entity;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import name.walnut.common.BaseEntity;
 import name.walnut.common.Null;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import java.util.Set;
+
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(name="UK_MOBILEPHONE", columnNames="mobilephone")})
+@Table(uniqueConstraints={@UniqueConstraint(name="UK_PHONE", columnNames="phone")})
 public class User extends BaseEntity {
 
-	private String mobilephone;
+	private String phone;
 	private String password;
 	private String nickName;
-	private String headPhotoPath;
-	private Date createDate;
+	private String headPhotoPath;;
+
+	public User() {}
+
+	public User(long id) {
+		setId(id);
+	}
 	
-	public String getMobilephone() {
-		return mobilephone;
+	public String getPhone() {
+		return phone;
 	}
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+
+
 	public String getNickName() {
 		return nickName;
 	}

@@ -1,15 +1,14 @@
 package name.walnut.auth.service.impl;
 
-import javax.transaction.Transactional;
-
+import name.walnut.auth.dao.UserDao;
+import name.walnut.auth.dto.OnlineUser;
+import name.walnut.common.entity.User;
+import name.walnut.auth.service.PassportService;
+import name.walnut.common.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import name.walnut.auth.dao.UserDao;
-import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.entity.User;
-import name.walnut.auth.service.PassportService;
-import name.walnut.common.BusinessException;
+import javax.transaction.Transactional;
 
 @Service
 @Transactional
@@ -31,7 +30,7 @@ public class PassportServiceImpl implements PassportService {
 	@Override
 	public void register(User user) {
 		
-		if(isExist(user.getMobilephone()))
+		if(isExist(user.getPhone()))
 			throw new BusinessException("此用户已注册");
 		
 		userDao.save(user);

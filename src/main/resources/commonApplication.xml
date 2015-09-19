@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+
+
     http://www.springframework.org/schema/tx 
     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-    http://www.springframework.org/schema/aop
-    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+
+
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util-4.0.xsd"
-  	>
+		>
 
 	<util:properties id="kanjianConf" location="file:${kanjian_config}" /> 
 
@@ -39,7 +37,7 @@
 		<property name="namingStrategy" ref="globalNamingStrategy"/>
 		<property name="packagesToScan">  
 	       <list>  
-	           <value>name.walnut.auth.*</value>  
+	           <value>name.walnut.common.entity.*</value>
 	       </list>  
 	    </property> 
         <property name="hibernateProperties">  
@@ -53,7 +51,7 @@
         </property>
         <property name="mappingDirectoryLocations">  
             <value>  
-                classpath*:hbm/
+                classpath*:hbm
             </value>  
         </property>  
 	</bean>

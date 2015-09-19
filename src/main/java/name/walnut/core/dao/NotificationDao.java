@@ -1,10 +1,10 @@
 package name.walnut.core.dao;
 
-import java.util.List;
-
 import name.walnut.common.DeprecatedBaseDao;
 import name.walnut.core.pojo.Notification;
 import name.walnut.mapper.core.NotificationMapper;
+
+import java.util.List;
 
 public interface NotificationDao extends DeprecatedBaseDao<NotificationMapper> {
 	

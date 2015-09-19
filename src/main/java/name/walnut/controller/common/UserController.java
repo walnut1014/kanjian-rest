@@ -1,19 +1,18 @@
 package name.walnut.controller.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.dto.UserQueryResult;
 import name.walnut.auth.service.UserService;
 import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.utils.StringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("user")

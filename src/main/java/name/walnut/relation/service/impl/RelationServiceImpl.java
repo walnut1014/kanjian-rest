@@ -1,12 +1,5 @@
 package name.walnut.relation.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import name.walnut.auth.dao.UserDao;
 import name.walnut.auth.dto.UserWithMobile;
 import name.walnut.common.BusinessException;
@@ -15,21 +8,22 @@ import name.walnut.relation.dao.FriendDao;
 import name.walnut.relation.dao.RelationDao;
 import name.walnut.relation.dto.FriendAndPhotoCount;
 import name.walnut.relation.dto.MobileRelation;
-import name.walnut.relation.entity.Friend;
+import name.walnut.common.entity.Friend;
 import name.walnut.relation.entity.Relation;
 import name.walnut.relation.service.RelationService;
 import name.walnut.utils.StringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 @Service
 public class RelationServiceImpl implements RelationService {
 
 	@Override
 	public int getFriendsCount() {
-		return friendDao.getMapper().getFriendCount(OnlineUtils.getOnlineUserId());
+		return  0; //friendDao.getMapper().getFriendCount(OnlineUtils.getOnlineUserId());
 	}
 	
 	@Override
@@ -76,6 +70,7 @@ public class RelationServiceImpl implements RelationService {
 	}
 	
 	@Override
+	@Deprecated
 	public void agreeInvit(long id) {
 		long InvitedId = OnlineUtils.getOnlineUserId(); //被邀请人
 		
@@ -88,22 +83,15 @@ public class RelationServiceImpl implements RelationService {
 		if(relationId == null)
 			throw new BusinessException("非法操作");
 		
-		relationDao.getMapper().updateAgree(relationId,true);
-		
-		Friend friend = new Friend();
-		friend.setUserId(id);
-		friend.setFriendId(InvitedId);
-		friendDao.insert(friend);
-		
-		friend.setFriendId(id);
-		friend.setUserId(InvitedId);
-		friendDao.insert(friend);
+		relationDao.getMapper().updateAgree(relationId, true);
+
+		//friendDao.insert(null);
 	}
 	
 	@Override
 	public List<FriendAndPhotoCount> getAllFindWhithPhotoCount() {
 		
-		return friendDao.getMapper().getFriends(OnlineUtils.getOnlineUserId());
+		return null; // friendDao.getMapper().getFriends(OnlineUtils.getOnlineUserId());
 	}
 	
 	/**

@@ -1,15 +1,13 @@
 package name.walnut.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 import name.walnut.common.BusinessException;
-
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 
-import com.alibaba.fastjson.support.spring.FastJsonJsonView;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 手机端异常处理类

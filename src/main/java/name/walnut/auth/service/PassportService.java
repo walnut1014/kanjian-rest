@@ -1,7 +1,7 @@
 package name.walnut.auth.service;
 
 import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 
 public interface PassportService {
 	

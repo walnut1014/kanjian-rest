@@ -1,8 +1,8 @@
 package name.walnut.relation.entity;
 
-import java.util.Date;
+import name.walnut.common.entity.BaseEntity;
 
-import name.walnut.common.BaseEntity;
+import java.util.Date;
 
 /**
  * 用户关系对象

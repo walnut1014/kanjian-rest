@@ -1,12 +1,12 @@
 package name.walnut.relation.service;
 
-import java.util.List;
-import java.util.Map;
-
 import name.walnut.auth.dto.UserWithMobile;
 import name.walnut.relation.dto.FriendAndPhotoCount;
 import name.walnut.relation.dto.MobileRelation;
 import name.walnut.relation.entity.Relation;
+
+import java.util.List;
+import java.util.Map;
 
 
 public interface RelationService {
@@ -32,7 +32,9 @@ public interface RelationService {
 	/**
 	 * 向别人发出邀请
 	 * @param id 被邀请人的id
+	 * @deprecated 被InviteService.invite()替换
 	 */
+	@Deprecated
 	void invit(long id);
 	
 	/**

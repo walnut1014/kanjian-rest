@@ -1,5 +1,17 @@
 package name.walnut.controller.common;
 
+import com.alibaba.fastjson.JSON;
+import name.walnut.common.BusinessException;
+import name.walnut.controller.Const;
+import name.walnut.utils.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.net.ssl.*;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,26 +24,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Map;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.servlet.http.HttpSession;
-
-import name.walnut.common.BusinessException;
-import name.walnut.controller.Const;
-import name.walnut.utils.StringUtils;
-
-import org.apache.log4j.Logger;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.fastjson.JSON;
 
 @RestController
 public class SMSValidateController {

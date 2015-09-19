@@ -2,7 +2,6 @@ package name.walnut.sequence.impl;
 
 import name.walnut.sequence.entity.SequenceState;
 import name.walnut.sequence.exception.SequenceException;
-
 import org.apache.log4j.Logger;
 
 public class Sequence {

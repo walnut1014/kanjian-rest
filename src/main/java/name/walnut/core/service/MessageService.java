@@ -1,10 +1,10 @@
 package name.walnut.core.service;
 
-import java.util.List;
-
 import name.walnut.common.Page;
 import name.walnut.core.pojo.MainMessage;
 import name.walnut.core.pojo.Message;
+
+import java.util.List;
 
 public interface MessageService {
 	/**

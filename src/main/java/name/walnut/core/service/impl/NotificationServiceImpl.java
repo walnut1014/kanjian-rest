@@ -1,13 +1,7 @@
 package name.walnut.core.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import name.walnut.auth.dao.UserDao;
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.core.dao.MessageRecordDao;
 import name.walnut.core.dao.NotificationDao;
@@ -15,6 +9,11 @@ import name.walnut.core.dto.NewMessage;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.core.pojo.Notification;
 import name.walnut.core.service.NotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {

@@ -1,4 +1,4 @@
-package name.walnut.common;
+package name.walnut.common.entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -6,12 +6,12 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class BaseEntity {
-	
 
-	private Long id;
 
 	@Id
 	@GeneratedValue
+	private Long id;
+
 	public Long getId() {
 		return id;
 	}

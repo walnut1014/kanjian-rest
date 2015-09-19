@@ -1,9 +1,5 @@
 package name.walnut.controller.passport;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
-
 import name.walnut.auth.dto.OnlineUser;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
@@ -11,13 +7,11 @@ import name.walnut.controller.Const;
 import name.walnut.controller.passport.vo.LoginParam;
 import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.web.vo.Normal;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/passport")

@@ -1,14 +1,11 @@
 package name.walnut.controller.core;
 
-import javax.annotation.Resource;
-
 import name.walnut.controller.Const;
 import name.walnut.controller.utils.UploadUtils;
 import name.walnut.core.SendMessage;
 import name.walnut.core.pojo.MainMessage;
 import name.walnut.core.service.MessageService;
 import name.walnut.web.vo.Normal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/message/photo")

@@ -1,15 +1,14 @@
 package name.walnut.mapper.relation;
 
-import java.util.List;
-import java.util.Set;
-
 import name.walnut.relation.dto.FriendAndPhotoCount;
-import name.walnut.relation.entity.Friend;
-
+import name.walnut.common.entity.Friend;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+import java.util.Set;
 
 
 public interface FriendMapper {

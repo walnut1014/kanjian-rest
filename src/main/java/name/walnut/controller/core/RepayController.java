@@ -1,20 +1,17 @@
 package name.walnut.controller.core;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import name.walnut.core.SendMessage;
 import name.walnut.core.pojo.MainMessage;
 import name.walnut.core.pojo.RepayMessage;
 import name.walnut.core.service.MessageService;
-import name.walnut.web.vo.Normal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * 评论Controller

@@ -1,10 +1,11 @@
 .classpath
 .project
 .settings
+.iml
 
 .externalToolBuilders/*
-target/*
 META-INF/*
 /bin
 /target
+/.idea
 /build/

@@ -1,8 +1,8 @@
 package name.walnut.core.entity;
 
-import java.util.Date;
+import name.walnut.common.entity.BaseEntity;
 
-import name.walnut.common.BaseEntity;
+import java.util.Date;
 
 /**
  * 消息记录

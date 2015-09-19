@@ -16,7 +16,7 @@
 	    
 	    function login() {
 		    $.postJSON('/passport/login', {
-		    	mobilephone:$('#userName').val(),
+		    	phone:$('#userName').val(),
 		    	password:$('#password').val()
 		    }, function(d) {
 		    	console.info(d);

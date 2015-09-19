@@ -1,13 +1,13 @@
 package name.walnut.auth.dao;
 
+import name.walnut.auth.dto.OnlineUser;
+import name.walnut.auth.dto.UserWithMobile;
+import name.walnut.common.entity.User;
+import name.walnut.common.BaseDao;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.dto.UserWithMobile;
-import name.walnut.auth.entity.User;
-import name.walnut.common.BaseDao;
 
 public interface UserDao extends BaseDao<User> {
 	

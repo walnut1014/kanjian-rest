@@ -1,14 +1,13 @@
 package name.walnut.sequence.impl;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import name.walnut.sequence.SequenceEnum;
 import name.walnut.sequence.SequenceManager;
 import name.walnut.sequence.dao.SequenceStateDao;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Service("sequenceManager")

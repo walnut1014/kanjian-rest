@@ -1,16 +1,10 @@
 package name.walnut.mapper.core;
 
-import java.util.List;
-
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 import name.walnut.core.entity.MessageRecord;
+import org.apache.ibatis.annotations.*;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import java.util.List;
 
 
 public interface MessageRecordMapper {

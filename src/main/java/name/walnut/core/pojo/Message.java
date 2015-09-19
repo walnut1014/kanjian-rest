@@ -1,9 +1,9 @@
 package name.walnut.core.pojo;
 
-import java.util.Date;
-
 import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.core.entity.MessageRecord;
+
+import java.util.Date;
 
 public abstract class Message {
 	

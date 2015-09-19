@@ -1,13 +1,13 @@
 package name.walnut.core.dao;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import name.walnut.common.DeprecatedBaseDao;
 import name.walnut.common.Page;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.mapper.core.MessageRecordMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface MessageRecordDao extends DeprecatedBaseDao<MessageRecordMapper> {
 	

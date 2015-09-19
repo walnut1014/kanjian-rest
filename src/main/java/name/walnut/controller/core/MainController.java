@@ -1,22 +1,15 @@
 package name.walnut.controller.core;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import name.walnut.common.Page;
 import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.core.pojo.Message;
 import name.walnut.core.service.MessageService;
 import name.walnut.web.vo.Normal;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 

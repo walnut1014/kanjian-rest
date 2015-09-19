@@ -1,21 +1,16 @@
 package name.walnut.core.dao.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 import name.walnut.common.Page;
 import name.walnut.core.dao.MessageRecordDao;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.mapper.core.MessageRecordMapper;
 import name.walnut.utils.DateUtils;
 import name.walnut.utils.StringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.*;
 
 @Repository
 public class MessageRecordDaoImpl implements MessageRecordDao {

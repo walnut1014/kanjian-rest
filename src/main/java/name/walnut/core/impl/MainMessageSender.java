@@ -2,12 +2,10 @@ package name.walnut.core.impl;
 
 import name.walnut.auth.dao.UserDao;
 import name.walnut.common.BusinessException;
-import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.core.AbstractMessageSender;
 import name.walnut.core.entity.MessageRecord;
 import name.walnut.core.pojo.MainMessage;
 import name.walnut.core.service.MessageService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

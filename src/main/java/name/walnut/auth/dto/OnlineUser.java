@@ -1,43 +1,34 @@
 package name.walnut.auth.dto;
 
-import org.hibernate.annotations.Formula;
+import name.walnut.common.entity.User;
 
 public class OnlineUser {
 
-	private String mobilephone;
-	private String nickName;
-	private String headPhotoPath;
-	private int photoCount;
-
-	public String getMobilephone() {
-		return mobilephone;
+	public OnlineUser(User user, int photoCount) {
+		this.user = user;
+		this.photoCount = photoCount;
 	}
 
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
+
+	public long getId() {return user.getId();}
+
+	public String getMobilephone() {
+		return user.getPhone();
 	}
 
 	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+		return user.getNickName();
 	}
 
 	public String getHeadPhotoPath() {
-		return headPhotoPath;
-	}
-
-	public void setHeadPhotoPath(String headPhotoPath) {
-		this.headPhotoPath = headPhotoPath;
+		return user.getHeadPhotoPath();
 	}
 
 	public int getPhotoCount() {
 		return photoCount;
 	}
 
-	public void setPhotoCount(int photoCount) {
-		this.photoCount = photoCount;
-	}
+	private User user;
+	private int photoCount;
+
 }

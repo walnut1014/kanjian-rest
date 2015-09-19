@@ -10,4 +10,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class InviteDaoImpl extends HibernateGenerationDao<InviteRecord> implements InviteDao {
+
+    @Override
+    public InviteRecord getInviteRecord(long inviteUserId, long targetUserId) {
+        return (InviteRecord) getSession().createQuery("from InviteRecord i " +
+                                        "where inviteUser.id = :inviteUserId and targetUser.id= :targetUserId")
+                                        .setLong("inviteUserId", inviteUserId)
+                                        .setLong("targetUserId", targetUserId)
+                                        .uniqueResult();
+    }
 }

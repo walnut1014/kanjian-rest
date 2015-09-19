@@ -1,8 +1,8 @@
 package name.walnut.core.service;
 
-import java.util.List;
-
 import name.walnut.core.dto.NewMessage;
+
+import java.util.List;
 
 public interface NotificationService {
 	

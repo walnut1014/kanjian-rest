@@ -1,13 +1,12 @@
 package name.walnut.core.dao.impl;
 
-import java.util.List;
-
 import name.walnut.core.dao.NotificationDao;
 import name.walnut.core.pojo.Notification;
 import name.walnut.mapper.core.NotificationMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class NotificationDaoImpl implements NotificationDao {

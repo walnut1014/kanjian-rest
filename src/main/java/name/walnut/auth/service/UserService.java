@@ -1,8 +1,8 @@
 package name.walnut.auth.service;
 
-import java.util.List;
-
 import name.walnut.auth.dto.UserQueryResult;
+
+import java.util.List;
 
 public interface UserService {
 	/**

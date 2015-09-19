@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import name.walnut.auth.dao.UserDao;
-import name.walnut.auth.entity.User;
 import name.walnut.auth.service.UserService;
 import name.walnut.test.TestSupport;
 

@@ -1,9 +1,9 @@
 package name.walnut.mapper.core;
 
+import name.walnut.core.pojo.Notification;
+
 import java.util.List;
 import java.util.Map;
-
-import name.walnut.core.pojo.Notification;
 
 public class NotificationSqlProvider {
 	public String insert(Map<String, List<Notification>> parameter) {

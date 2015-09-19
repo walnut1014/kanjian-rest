@@ -1,6 +1,6 @@
 package name.walnut.auth.dto;
 
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 
 public class UserWithMobile {
 	private User user;

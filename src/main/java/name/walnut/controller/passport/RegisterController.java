@@ -1,16 +1,7 @@
 package name.walnut.controller.passport;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import name.walnut.auth.dto.OnlineUser;
-import name.walnut.auth.entity.User;
+import name.walnut.common.entity.User;
 import name.walnut.auth.service.PassportService;
 import name.walnut.common.BusinessException;
 import name.walnut.controller.Const;
@@ -19,6 +10,14 @@ import name.walnut.controller.utils.OnlineUtils;
 import name.walnut.controller.utils.UploadUtils;
 import name.walnut.utils.StringUtils;
 import name.walnut.web.vo.Normal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/passport")
@@ -69,12 +68,12 @@ public class RegisterController {
 			throw new BusinessException("昵称与密码不能为空");
 		
 		user.setPassword(password);
-		user.setMobilephone(session.getAttribute(Const.MOBILEPHONE).toString());
+		user.setPhone(session.getAttribute(Const.MOBILEPHONE).toString());
 		passportService.register(user);
 		
 		LoginParam loginParam = new LoginParam();
 		loginParam.setDeviceToken(deviceToken);
-		loginParam.setMobilephone(user.getMobilephone());
+		loginParam.setMobilephone(user.getPhone());
 		loginParam.setPassword(user.getPassword());
 		//返回用户头像路径
 		return OnlineUtils.login(loginParam);

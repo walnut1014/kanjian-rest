@@ -1,20 +1,18 @@
 package name.walnut.controller.common;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
-
-import javax.servlet.http.HttpServletResponse;
-
 import name.walnut.controller.Const;
 import name.walnut.utils.SpringUtils;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
 @Controller
 @RequestMapping(Const.DOWLOAD_PAHT)
